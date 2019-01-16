@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Kuda international</string>
+
+    <string name="prompt_account">Account</string>
+    <string name="prompt_password">Password</string>
+
+    <string name="action_sign_in_short">Sign in</string>
+
+
+    <string name="notifyTitle">Tips</string>
+    <string name="notifyMsg">Current applications lack the necessary permissions。\n\nPlease click\"Setting\"-\"Permission\"-Open the required permissions。</string>
+    <string name="setting">Setting</string>
+
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="agree">Agree</string>
+    <string name="refuse">Refuse</string>
+
+    <string name="complete">Complete</string>
+
+    <string name="sign_in">Sign in</string>
+    <string name="submit_feedback">Submit feedback</string>
+</resources>

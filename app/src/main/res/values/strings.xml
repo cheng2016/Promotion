@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Kuda international</string>
+
+    <string name="prompt_account">输入账号</string>
+    <string name="prompt_password">输入密码</string>
+
+    <string name="action_sign_in_short">Sign in</string>
+
+
+    <string name="notifyTitle">提示</string>
+    <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="setting">设置</string>
+
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+
+    <string name="agree">同意</string>
+    <string name="refuse">拒绝</string>
+
+    <string name="complete">完成</string>
+
+    <string name="sign_in">登录</string>
+
+    <string name="submit_feedback">Submit feedback</string>
+
+</resources>
