@@ -8,4 +8,207 @@
 
     <include layout="@layout/action_bar" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/widget_size_30">
+
+
+        <LinearLayout
+            android:layout_width="@dimen/widget_size_50"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/attendancedot" />
+
+            <View
+                android:layout_width="@dimen/widget_min_size_3"
+                android:layout_height="@dimen/widget_size_206"
+                android:background="@color/splite_line" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/attendancedot_current" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/widget_size_210"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Working hours 09:00"
+                    android:textColor="@color/disable_color"
+                    android:textSize="@dimen/font_size_14" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/check_in_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/widget_size_8"
+                        android:text="Clock in time 09:59:59"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/check_in_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/widget_size_8"
+                        android:text="Be late"
+                        android:textColor="@color/attendance_red"
+                        android:textSize="@dimen/font_size_16"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/check_in_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/widget_size_60"
+                    android:layout_marginTop="@dimen/widget_size_8"
+                    android:background="@mipmap/bg_attendancetime"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Clock in"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="@dimen/widget_size_52"
+                        android:textSize="@dimen/font_size_16"
+                        android:textStyle="bold" />
+                    <TextClock
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:format12Hour="hh:mm:ss"
+                        android:format24Hour="HH:mm:ss"
+                        android:layout_marginTop="@dimen/widget_size_3"
+                        android:gravity="center"
+                        android:text="09:59:59"
+                        android:textAllCaps="false"
+                        android:textColor="@color/clock_text"
+                        android:textSize="@dimen/font_size_14"
+                        android:textStyle="bold"
+                        android:visibility="visible" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/widget_size_210"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Off hours 18:00"
+                    android:textColor="@color/disable_color"
+                    android:textSize="@dimen/font_size_14" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/check_out_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/widget_size_8"
+                        android:text="Clock out time 16:59:59"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/check_out_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/widget_size_8"
+                        android:text="Be late"
+                        android:textColor="@color/attendance_red"
+                        android:textSize="@dimen/font_size_16"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/check_out_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/widget_size_60"
+                    android:layout_marginTop="@dimen/widget_size_8"
+                    android:background="@mipmap/bg_attendancetime"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Clock out"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_16"
+                        android:layout_marginTop="@dimen/widget_size_52"
+                        android:textStyle="bold" />
+                    <TextClock
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:format12Hour="hh:mm:ss"
+                        android:format24Hour="HH:mm:ss"
+                        android:layout_marginTop="@dimen/widget_size_3"
+                        android:gravity="center"
+                        android:text="17:59:59"
+                        android:textAllCaps="false"
+                        android:textColor="@color/clock_text"
+                        android:textSize="@dimen/font_size_14"
+                        android:textStyle="bold"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/record_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Attendance Record >"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/widget_size_30"
+            android:textColor="@color/disable_color"
+            android:textSize="@dimen/font_size_18" />
+
+    </RelativeLayout>
 </LinearLayout>

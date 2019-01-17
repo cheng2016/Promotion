@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Job number:"
-                android:textColor="@color/disable_color"
+                android:textColor="@color/black"
                 android:textSize="@dimen/font_size_14"
                 android:textStyle="bold" />
         </LinearLayout>

@@ -182,4 +182,8 @@
     <color name="input_stroke">#DBDBDB</color>
 
     <color name="edit_bg">#F4F4F4</color>
+
+    <color name="attendance_red">#FF4A56</color>
+    
+    <color name="clock_text">#D0D9EE</color>
 </resources>

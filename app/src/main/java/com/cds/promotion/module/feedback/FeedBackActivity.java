@@ -18,26 +18,26 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.cds.promotion.App;
 import com.cds.promotion.R;
 import com.cds.promotion.base.BaseActivity;
+import com.cds.promotion.module.adapter.ImageListAdapter;
 import com.cds.promotion.util.ToastUtils;
 import com.cds.promotion.view.ActionSheetDialog;
-import com.cds.promotion.view.ActionSheetDialog.OnSheetItemClickListener;
-import com.cds.promotion.view.ActionSheetDialog.SheetItemColor;
+import com.cds.promotion.view.ActionSheetDialog.*;
 import com.cds.promotion.view.CustomDialog;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import butterknife.Bind;
 
-public class FeedBackActivity extends BaseActivity implements View.OnClickListener, FeedBackContract.View {
+public class FeedBackActivity extends BaseActivity implements View.OnClickListener, FeedBackContract.View, ImageListAdapter.OnImageClickListener {
     // 拍照回传码
     public final static int PHOTO_REQUEST_CAMERA = 0X01;
     // 相册选择回传吗
@@ -47,14 +47,20 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
 
     private static final int MESSAGE_MAX_LENGTH = 300;
 
-    private ImageView feedbackImg, delImg;
+    private static final int IMAGE_MAX_LENGTH = 3;
 
     @Bind(R.id.sosMsg)
     EditText sosMsgEdit;
     @Bind(R.id.edit_status)
     TextView editStatus;
+    @Bind(R.id.image_status)
+    TextView imageStatus;
+    @Bind(R.id.img_grid_view)
+    GridView imgGridView;
 
-    private String mFilePath = "";
+    ImageListAdapter adapter;
+
+//    private String mFilePath = "";
 
     private FeedBackPresenter mPresenter;
 
@@ -64,7 +70,7 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         mPresenter.unsubscribe();
         if (mAvatarFile != null) {
             mAvatarFile.delete();
-            mFilePath = "";
+//            mFilePath = "";
         }
     }
 
@@ -79,10 +85,7 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.back_button).setVisibility(View.VISIBLE);
         findViewById(R.id.back_button).setOnClickListener(this);
         findViewById(R.id.commit_btn).setOnClickListener(this);
-        feedbackImg = (ImageView) findViewById(R.id.feedback_img);
-        delImg = (ImageView) findViewById(R.id.del_img);
-        delImg.setOnClickListener(this);
-        feedbackImg.setOnClickListener(this);
+
         sosMsgEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -116,6 +119,10 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
                     PHOTO_REQUEST_CAMERA);
 
         }
+
+        adapter = new ImageListAdapter(this);
+        adapter.setListener(this);
+        imgGridView.setAdapter(adapter);
     }
 
 
@@ -125,26 +132,6 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
             case R.id.back_button:
                 finish();
                 break;
-            case R.id.feedback_img:
-                new ActionSheetDialog(this)
-                        .builder()
-                        .setCancelable(true)
-                        .setCanceledOnTouchOutside(true)
-                        .addSheetItem("拍照", SheetItemColor.Blue,
-                                new OnSheetItemClickListener() {
-                                    @Override
-                                    public void onClick(int which) {
-                                        openCamera();
-                                    }
-                                })
-                        .addSheetItem("从手机相册选择", SheetItemColor.Blue,
-                                new OnSheetItemClickListener() {
-                                    @Override
-                                    public void onClick(int which) {
-                                        openAlbum();
-                                    }
-                                }).show();
-                break;
             case R.id.commit_btn:
                 String content = sosMsgEdit.getText().toString();
                 if (TextUtils.isEmpty(content)) {
@@ -153,20 +140,8 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
                     ToastUtils.showShort(App.getInstance(), "请填写不低于20个字的内容描述");
                 } else {
                     showProgressDilog();
-                    mPresenter.feedback(content, mFilePath);
+//                    mPresenter.feedback(content, mFilePath);
                 }
-                break;
-            case R.id.del_img:
-                new CustomDialog(this)
-                        .setMessage("确认删除图片？")
-                        .setPositiveButton("确定", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                feedbackImg.setImageResource(R.mipmap.addimage);
-                                delImg.setVisibility(View.GONE);
-                                mFilePath = "";
-                            }
-                        }).showDialog();
                 break;
             default:
                 break;
@@ -240,11 +215,14 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         }
         //调用系统裁剪，返回结果
         if (requestCode == PHOTO_REQUEST_CROP_PHOTO && resultCode == Activity.RESULT_OK) {
-            Picasso.with(this)
-                    .load(mAvatarFile)
-                    .into(feedbackImg);
-            mFilePath = mAvatarFile.getAbsolutePath();
-            delImg.setVisibility(View.VISIBLE);
+//            Picasso.with(this)
+//                    .load(mAvatarFile)
+//                    .into(feedbackImg);
+//            mFilePath = mAvatarFile.getAbsolutePath();
+//            delImg.setVisibility(View.VISIBLE);
+            List<String> stringList = adapter.getDataList();
+            stringList.add(mAvatarFile.getAbsolutePath());
+            adapter.setDataList(stringList);
         }
     }
 
@@ -300,4 +278,50 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         startActivityForResult(intent, PHOTO_REQUEST_CROP_PHOTO);
     }
+
+    @Override
+    public void onAddClick() {
+        new ActionSheetDialog(this)
+                .builder()
+                .setCancelable(true)
+                .setCanceledOnTouchOutside(true)
+                .addSheetItem("拍照", SheetItemColor.Blue,
+                        new OnSheetItemClickListener() {
+                            @Override
+                            public void onClick(int which) {
+                                openCamera();
+                            }
+                        })
+                .addSheetItem("从手机相册选择", SheetItemColor.Blue,
+                        new OnSheetItemClickListener() {
+                            @Override
+                            public void onClick(int which) {
+                                openAlbum();
+                            }
+                        }).show();
+    }
+
+    @Override
+    public void onDeleteClick(int index) {
+        List<String> stringList = adapter.getDataList();
+        stringList.remove(index);
+        adapter.setDataList(stringList);
+        imageStatus.setText("Upload Image(" + stringList.size() + "/"
+                + IMAGE_MAX_LENGTH + ")");
+    }
+/*
+    @Override
+    public void onDeleteClick(int index) {
+        new CustomDialog(this)
+                .setMessage("确认删除图片？")
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        adapter.getDataList();
+//                                feedbackImg.setImageResource(R.mipmap.addimage);
+//                                delImg.setVisibility(View.GONE);
+//                        mFilePath = "";
+                    }
+                }).showDialog();
+    }*/
 }

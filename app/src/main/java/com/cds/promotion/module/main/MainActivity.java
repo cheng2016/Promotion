@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -14,6 +15,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.cds.promotion.R;
 import com.cds.promotion.base.BaseActivity;
 import com.cds.promotion.data.entity.MenuBean;
+import com.cds.promotion.data.entity.SalesInfo;
 import com.cds.promotion.module.about.AboutActivity;
 import com.cds.promotion.module.achievement.AchievementActivity;
 import com.cds.promotion.module.adapter.MenuAdapter;
@@ -58,11 +60,12 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        MenuAdapter menuAdapter = new MenuAdapter(this);
-        menuGridList.setAdapter(menuAdapter);
         rightImg.setVisibility(View.VISIBLE);
         rightImg.setImageResource(R.mipmap.group);
         findViewById(R.id.right_button).setOnClickListener(this);
+
+        MenuAdapter menuAdapter = new MenuAdapter(this);
+        menuGridList.setAdapter(menuAdapter);
 
         List<MenuBean> data = new ArrayList<>();
         for (int i = 0; i < icons.length; i++) {
@@ -85,6 +88,8 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
                 }
             }
         }, 300);
+
+        mPresenter.getSalesInfo();
     }
 
     @Override
@@ -150,7 +155,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent();
-        switch (position){
+        switch (position) {
             case 0:
                 intent.setClass(MainActivity.this, AttendanceActivity.class);
                 startActivity(intent);
@@ -188,5 +193,12 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
                         }).showDialog();
                 break;
         }
+    }
+
+    @Override
+    public void getSalesInfoSuccess(SalesInfo resp) {
+        nameTv.setText(Html.fromHtml(resp.getName() + "&nbsp&nbsp<font color='#999999'>Welcome!</font>"));
+        companyTv.setText(resp.getCooperative_name());
+        jobNumberTv.setText(Html.fromHtml("<font color='#999999'>Job number :&nbsp&nbsp</font>" + resp.getJob_no()));
     }
 }

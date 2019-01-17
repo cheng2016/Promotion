@@ -29,7 +29,7 @@ public class MD5Utils {
     }
   }
 
-/*  public final static String MD5(String s) {
+  public final static String MD5(String s) {
     char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
             'A', 'B', 'C', 'D', 'E', 'F' };
     try {
@@ -53,9 +53,13 @@ public class MD5Utils {
     } catch (Exception e) {
       return null;
     }
-  }*/
+  }
 
   public static void main(String[] args) {
-    System.out.print(MD5Utils.md5("123456"));
+    System.out.println(MD5Utils.md5("123456"));
+
+    boolean result = "E10ADC3949BA59ABBE56E057F20F883E".equals("E10ADC3949BA59ABBE56E057F20F883E");
+
+    System.out.println("result："+ result);
   }
 }

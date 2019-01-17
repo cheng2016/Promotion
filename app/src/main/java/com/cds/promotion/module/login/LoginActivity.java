@@ -31,9 +31,6 @@ import butterknife.OnClick;
  * @Version: 3.0.0
  */
 public class LoginActivity extends BaseActivity implements LoginContract.View {
-    private static final int RC_SIGN_IN = 9001;
-
-    LoginContract.Presenter mPresenter;
     @Bind(R.id.account)
     AppCompatEditText accountView;
     @Bind(R.id.password)
@@ -41,6 +38,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Bind(R.id.login_button)
     Button loginButton;
 
+    LoginContract.Presenter mPresenter;
 
     @Override
     protected int getLayoutId() {
@@ -74,7 +72,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_button:
-                goToMainActivity();
                 String acount = accountView.getText().toString().trim();
                 String password = passwordView.getText().toString().trim();
                 if (TextUtils.isEmpty(acount)

@@ -2,6 +2,7 @@ package com.cds.promotion.module.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.cds.promotion.R;
 import com.cds.promotion.data.entity.VisitBean;
 import com.cds.promotion.util.DateUtils;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,9 +74,15 @@ public class VisitAdapter extends BaseAdapter {
         }
         if (mDataList != null && !mDataList.isEmpty()) {
             VisitBean bean = mDataList.get(index);
-//            holder.titleTv.setText(bean.getTitle());
-//            holder.contentTv.setText(bean.getContent());
-//            holder.timeTv.setText(DateUtils.parseMillisToString(Long.parseLong(bean.getTailtime())));
+            holder.titleTv.setText(bean.getDealer_name());
+            holder.contentTv.setText(bean.getDealer_address());
+            holder.timeTv.setText(DateUtils.parseMillisToString(bean.getVisiting_date()));
+
+            if(!TextUtils.isEmpty(bean.getDealer_img())){
+                Picasso.with(context)
+                        .load(bean.getDealer_img())
+                        .into(holder.describeImg);
+            }
         }
         return view;
     }

@@ -10,10 +10,17 @@ import com.cds.promotion.module.BaseView;
  */
 public interface AttendanceContract {
     interface View extends BaseView<Presenter> {
-
+        void clockOnSuccess();
     }
 
     interface Presenter extends BasePresenter {
+        void clockOn( String time,
+                     String type);
 
+        void clockOn(String location,
+                     String address,
+                     String time,
+                     String description,
+                     String type);
     }
 }

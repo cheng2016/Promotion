@@ -24,7 +24,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.cds.promotion"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
         versionName "1.0.${getTime()}"
@@ -39,17 +39,41 @@ android {
         }
     }
 
+    signingConfigs {
+        kuda {
+            keyAlias 'kuda'
+            keyPassword 'kuda20180117'
+            storeFile file('promotion.jks')
+            storePassword 'kuda20180117'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.kuda
+
+            applicationVariants.all {
+                variant ->
+                    variant.outputs.all {
+                        output ->
+                            def outputFile = output.outputFile
+                            if (outputFile.name.contains("release")) {
+                                outputFileName = new File("../release/", "Promotion_v${versionName}.apk")
+                            }
+                    }
+            }
         }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    final SUPPORT_VERSION = '28.0.0'
+    implementation "com.android.support:appcompat-v7:$SUPPORT_VERSION"
+    implementation "com.android.support:design:$SUPPORT_VERSION"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -99,5 +123,5 @@ dependencies {
     implementation 'com.hyman:flowlayout-lib:1.1.2'
 
     //刷新组件
-    implementation 'com.github.cheng2016:PullToRefresh:V1.0.8'
+    implementation 'com.github.cheng2016:PullToRefresh:V2.0.0'
 }

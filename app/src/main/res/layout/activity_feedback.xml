@@ -39,38 +39,32 @@
 
 
     <TextView
+        android:id="@+id/image_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/widget_size_16"
-        android:layout_marginBottom="@dimen/widget_size_16"
+        android:layout_marginBottom="@dimen/widget_size_8"
         android:textColor="@color/disable_color"
         android:text="Upload Image(0/3)" />
 
     <RelativeLayout
-        android:layout_width="@dimen/widget_size_90"
-        android:layout_height="@dimen/widget_size_90"
-        android:layout_marginLeft="@dimen/widget_size_10">
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/widget_size_100"
+        android:layout_marginLeft="@dimen/widget_size_18">
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/feedback_img"
-            android:layout_width="@dimen/widget_size_60"
-            android:layout_height="@dimen/widget_size_60"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:src="@mipmap/addimage"
-            app:srcCompat="@mipmap/addimage" />
+        <GridView
+            android:id="@+id/img_grid_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:listSelector="@color/trans"
+            android:divider="@null"
+            android:scrollbars="none"
+            android:numColumns="4">
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/del_img"
-            android:layout_width="@dimen/widget_size_20"
-            android:layout_height="@dimen/widget_size_20"
-            android:layout_alignParentRight="true"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:visibility="invisible"
-            app:srcCompat="@mipmap/btn_delete_image" />
+        </GridView>
+
     </RelativeLayout>
 
     <FrameLayout

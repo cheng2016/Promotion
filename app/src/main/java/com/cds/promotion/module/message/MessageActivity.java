@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,6 +28,9 @@ import butterknife.Bind;
  */
 public class MessageActivity extends BaseActivity implements PullToRefreshBase.OnRefreshListener<ListView>, MessageContract.View, AdapterView.OnItemClickListener, View.OnClickListener {
     public static final int REQUEST_NUM = 10;
+
+    @Bind(R.id.right_img)
+    ImageView rightImg;
     @Bind(R.id.empty_layout)
     RelativeLayout emptyLayout;
     @Bind(R.id.refresh_listView)
@@ -54,6 +58,11 @@ public class MessageActivity extends BaseActivity implements PullToRefreshBase.O
         findViewById(R.id.back_button).setVisibility(View.VISIBLE);
         findViewById(R.id.back_button).setOnClickListener(this);
         ((TextView) findViewById(R.id.title)).setText("Messages");
+
+        rightImg.setVisibility(View.VISIBLE);
+        rightImg.setImageResource(R.mipmap.clearallmessage);
+        findViewById(R.id.right_button).setOnClickListener(this);
+
         refreshListView.setPullLoadEnabled(false);//上拉加载是否可用
         refreshListView.setScrollLoadEnabled(true);//判断滑动到底部加载是否可用
         refreshListView.setPullRefreshEnabled(true);//设置是否能下拉

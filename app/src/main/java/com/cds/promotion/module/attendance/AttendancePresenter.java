@@ -1,9 +1,20 @@
 package com.cds.promotion.module.attendance;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.cds.promotion.App;
+import com.cds.promotion.data.BaseResp;
+import com.cds.promotion.data.entity.ClockOnReq;
+import com.cds.promotion.data.source.remote.BaseObserver;
 import com.cds.promotion.data.source.remote.HttpApi;
 import com.cds.promotion.data.source.remote.HttpFactory;
+import com.cds.promotion.util.PreferenceConstants;
+import com.cds.promotion.util.PreferenceUtils;
+import com.google.gson.Gson;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @Author: chengzj
@@ -31,5 +42,68 @@ public class AttendancePresenter implements AttendanceContract.Presenter {
     @Override
     public void unsubscribe() {
         mCompositeDisposable.clear();
+    }
+
+    @Override
+    public void clockOn(String time, String type) {
+        String userId = PreferenceUtils.getPrefString(App.getInstance(), PreferenceConstants.USER_ID, "");
+        ClockOnReq req = new ClockOnReq(userId, time, type);
+        mHttpApi.clockOn(new Gson().toJson(req))
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<BaseResp>() {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mCompositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(BaseResp resp) {
+                        if ("200".equals(resp.getInfo().getCode())) {
+                            view.clockOnSuccess();
+                        } else {
+                            ToastUtils.showShort(resp.getInfo().getInfo());
+                        }
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    @Override
+    public void clockOn(String location, String address, String time, String description, String type) {
+        String userId = PreferenceUtils.getPrefString(App.getInstance(), PreferenceConstants.USER_ID, "");
+        ClockOnReq req = new ClockOnReq();
+        mHttpApi.clockOn(new Gson().toJson(req))
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<BaseResp>() {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mCompositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(BaseResp resp) {
+                        if ("200".equals(resp.getInfo().getCode())) {
+                            view.clockOnSuccess();
+                        } else {
+                            ToastUtils.showShort(resp.getInfo().getInfo());
+                        }
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    public static void main(String[] args) {
+        ClockOnReq req = new ClockOnReq("1", "", "海松大厦", "2018-02-02 09:06", "", "0");
+        System.out.printf(new Gson().toJson(req));
     }
 }

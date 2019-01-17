@@ -1,11 +1,15 @@
 package com.cds.promotion.data.source.remote;
 
 import com.cds.promotion.data.BaseResp;
+import com.cds.promotion.data.entity.ClockOnInfo;
+import com.cds.promotion.data.entity.ClockOnList;
 import com.cds.promotion.data.entity.DoctorInfo;
 import com.cds.promotion.data.entity.Info;
 import com.cds.promotion.data.entity.Medicine;
 import com.cds.promotion.data.entity.Order;
 import com.cds.promotion.data.entity.OrderInfo;
+import com.cds.promotion.data.entity.SalesInfo;
+import com.cds.promotion.data.entity.VisitingList;
 
 import java.util.List;
 
@@ -28,27 +32,22 @@ public interface HttpApi {
     Observable<BaseResp<Info>> login(@Query("content") String json);
 
     @GET("sales/info")
-    Observable<BaseResp<DoctorInfo>> getDoctorInfo(@Query("content") String json);
+    Observable<BaseResp<SalesInfo>> getSalesInfo(@Query("content") String json);
 
-    @GET("appoint/list")
-    Observable<BaseResp<List<Order>>> getOrderList(@Query("content") String json);
-
-    @GET("appoint/info")
-    Observable<BaseResp<OrderInfo>> getOrderInfo(@Query("content") String json);
-
-    @POST("appoint/option")
-    Observable<BaseResp> executeOrder(@Query("content") String json);
-
-    @GET("sales/services")
-    Observable<BaseResp<List<Medicine>>> getMedicine(@Query("content") String json);
-
-    @POST("sales/diagnosticsresult")
-    Observable<BaseResp> openOrder(@Query("content") String json);
-
-    @POST("sales/info")
-    Observable<BaseResp> updateWorkState(@Query("content") String json);
-
-
-    @POST("user/feedback")
+    @POST("sales/feedback")
     Observable<BaseResp> feedback(@Body RequestBody Body);
+
+
+    @POST("sales/clockOn")
+    Observable<BaseResp> clockOn(@Query("content") String json);
+
+//    @GET("sales/clockOn")
+//    Observable<BaseResp> getClockOn(@Query("content") String json);
+
+    @GET("sales/clockOnList")
+    Observable<BaseResp<ClockOnList>> getClockOnList(@Query("content") String json);
+
+
+    @GET("visiting/list")
+    Observable<BaseResp<VisitingList>> getVisitingList(@Query("content") String json);
 }

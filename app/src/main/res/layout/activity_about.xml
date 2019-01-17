@@ -8,4 +8,21 @@
 
     <include layout="@layout/action_bar" />
 
+    <RelativeLayout
+        android:id="@+id/empty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableTop="@mipmap/ic_launcher_round"
+            android:drawablePadding="@dimen/widget_size_16"
+            android:gravity="center_horizontal"
+            android:text="版本：1.0.0"
+            android:textColor="#999999" />
+    </RelativeLayout>
+
 </LinearLayout>

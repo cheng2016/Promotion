@@ -44,7 +44,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void login(final String name, final String pwd) {
-        LoginReq req = new LoginReq(name, MD5Utils.md5(pwd));
+        LoginReq req = new LoginReq(name, MD5Utils.MD5(pwd));
         mHttpApi.login(new Gson().toJson(req))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
