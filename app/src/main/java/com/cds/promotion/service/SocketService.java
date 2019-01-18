@@ -429,8 +429,8 @@ public class SocketService extends Service implements SocketContract {
                 .setContentText(message)
                 .setContentIntent(intent)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setSmallIcon(R.mipmap.cdspromote)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.cdspromote))
                 .setLights(Color.BLUE, 2000, 1000)
                 .setAutoCancel(true);
         if (RomUtils.isMiui()){
@@ -462,8 +462,8 @@ public class SocketService extends Service implements SocketContract {
                 .setContentText(message)//设置通知栏内容
                 .setContentIntent(intent)//设置跳转
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher)//设置图标
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setSmallIcon(R.mipmap.cdspromote)//设置图标
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.cdspromote))
 //                .setDefaults(Notification.DEFAULT_ALL)//设置
                 .setLights(Color.BLUE, 2000, 1000)//设置提示灯
                 .setAutoCancel(true);//设置自动消失

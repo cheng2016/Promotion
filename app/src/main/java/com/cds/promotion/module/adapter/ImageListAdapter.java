@@ -2,11 +2,13 @@ package com.cds.promotion.module.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.cds.promotion.R;
 import com.squareup.picasso.Picasso;
@@ -46,6 +48,7 @@ public class ImageListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+//        return 2;
         if (mDataList.size() == 3) {
             return mDataList.size();
         }
@@ -87,16 +90,17 @@ public class ImageListAdapter extends BaseAdapter {
                     }
                 }
             });
-            holder.delImg.setOnClickListener(null);
             return convertView;
         }
         holder.addImg.setVisibility(View.GONE);
         holder.img.setVisibility(View.VISIBLE);
         holder.delImg.setVisibility(View.VISIBLE);
 
-        Picasso.with(context)
-                .load("file://" + mDataList.get(position))
-                .into(holder.img);
+        if(mDataList.size() > 0 &&!TextUtils.isEmpty(mDataList.get(position))){
+            Picasso.with(context)
+                    .load("file://" + mDataList.get(position))
+                    .into(holder.img);
+        }
 
         holder.delImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +109,7 @@ public class ImageListAdapter extends BaseAdapter {
 //                setDataList(mDataList);
 
                 if (listener != null) {
-                    listener.onAddClick();
+                    listener.onDeleteClick(position);
                 }
             }
         });
@@ -114,7 +118,7 @@ public class ImageListAdapter extends BaseAdapter {
 
     class ViewHolder {
         @Bind(R.id.add_img)
-        ImageView addImg;
+        RelativeLayout addImg;
         @Bind(R.id.img)
         AppCompatImageView img;
         @Bind(R.id.del_img)

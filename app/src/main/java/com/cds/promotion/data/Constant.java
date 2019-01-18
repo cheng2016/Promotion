@@ -43,4 +43,8 @@ public interface Constant {
     String ORDER_TYPE_OTHER = "5";
     //预约成功
     String ORDER_TYPE_APPOINTMENT_SUCCESS = "7";
+
+    String OFF_WORK = "0";
+
+    String ON_WORK = "1";
 }

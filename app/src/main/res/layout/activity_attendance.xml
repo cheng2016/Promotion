@@ -22,6 +22,7 @@
             android:orientation="vertical">
 
             <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/go_work_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/attendancedot" />
@@ -32,13 +33,14 @@
                 android:background="@color/splite_line" />
 
             <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/off_work_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/attendancedot_current" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -48,6 +50,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/go_work_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Working hours 09:00"
@@ -55,10 +58,11 @@
                     android:textSize="@dimen/font_size_14" />
 
                 <LinearLayout
+                    android:id="@+id/go_work_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/check_in_time"
@@ -82,6 +86,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/check_in_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -123,6 +128,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/off_work_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Off hours 18:00"
@@ -130,10 +136,11 @@
                     android:textSize="@dimen/font_size_14" />
 
                 <LinearLayout
+                    android:id="@+id/off_work_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/check_out_time"
@@ -150,13 +157,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/widget_size_8"
-                        android:text="Be late"
+                        android:text="leave early"
                         android:textColor="@color/attendance_red"
                         android:textSize="@dimen/font_size_16"
                         android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/check_out_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

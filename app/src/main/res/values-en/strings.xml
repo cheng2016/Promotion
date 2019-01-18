@@ -21,4 +21,12 @@
 
     <string name="sign_in">Sign in</string>
     <string name="submit_feedback">Submit feedback</string>
+
+    <string name="company_description">Kuanda Communication Co., Ltd. All rights reserved</string>
+
+    <string name="exit_account">Confirm to quit the account ?</string>
+
+    <string name="take_photo">Take a photo</string>
+
+    <string name="choose_album">Choose from a mobile photo album</string>
 </resources>

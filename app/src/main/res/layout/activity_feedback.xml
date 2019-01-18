@@ -54,7 +54,7 @@
         android:layout_height="@dimen/widget_size_100"
         android:layout_marginLeft="@dimen/widget_size_18">
 
-        <GridView
+        <com.cds.promotion.view.HorizontalListView
             android:id="@+id/img_grid_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:scrollbars="none"
             android:numColumns="4">
 
-        </GridView>
+        </com.cds.promotion.view.HorizontalListView>
 
     </RelativeLayout>
 

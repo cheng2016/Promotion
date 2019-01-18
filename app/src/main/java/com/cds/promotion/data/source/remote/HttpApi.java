@@ -1,6 +1,7 @@
 package com.cds.promotion.data.source.remote;
 
 import com.cds.promotion.data.BaseResp;
+import com.cds.promotion.data.entity.AchievemenBean;
 import com.cds.promotion.data.entity.ClockOnInfo;
 import com.cds.promotion.data.entity.ClockOnList;
 import com.cds.promotion.data.entity.DoctorInfo;
@@ -37,17 +38,18 @@ public interface HttpApi {
     @POST("sales/feedback")
     Observable<BaseResp> feedback(@Body RequestBody Body);
 
-
     @POST("sales/clockOn")
     Observable<BaseResp> clockOn(@Query("content") String json);
 
-//    @GET("sales/clockOn")
-//    Observable<BaseResp> getClockOn(@Query("content") String json);
+    @GET("sales/clockOn")
+    Observable<BaseResp<ClockOnInfo>> getClockOn(@Query("content") String json);
 
     @GET("sales/clockOnList")
     Observable<BaseResp<ClockOnList>> getClockOnList(@Query("content") String json);
 
-
     @GET("visiting/list")
     Observable<BaseResp<VisitingList>> getVisitingList(@Query("content") String json);
+
+    @GET("sales/getAchievement")
+    Observable<BaseResp<AchievemenBean>> getAchievement(@Query("content") String json);
 }

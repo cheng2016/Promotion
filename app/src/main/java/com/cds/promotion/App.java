@@ -47,7 +47,7 @@ public class App extends Application {
         //初始化工具类
         Utils.init(this);
         initPicasoConfig();
-        CrashHandler.getInstance().init(this);
+//        CrashHandler.getInstance().init(this);
     }
 
     private void initPicasoConfig() {

@@ -18,24 +18,22 @@ public class ClockOnReq {
     private String user_id;
     private String location;
     private String address;
-    private String time;
+    //    private String time;
     private String description;
     private String type;
 
     public ClockOnReq() {
     }
 
-    public ClockOnReq(String user_id, String time, String type) {
+    public ClockOnReq(String user_id, String type) {
         this.user_id = user_id;
-        this.time = time;
         this.type = type;
     }
 
-    public ClockOnReq(String user_id, String location, String address, String time, String description, String type) {
+    public ClockOnReq(String user_id, String location, String address, String description, String type) {
         this.user_id = user_id;
         this.location = location;
         this.address = address;
-        this.time = time;
         this.description = description;
         this.type = type;
     }
@@ -62,14 +60,6 @@ public class ClockOnReq {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public String getDescription() {

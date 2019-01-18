@@ -25,7 +25,9 @@ import com.cds.promotion.module.login.LoginActivity;
 import com.cds.promotion.module.message.MessageActivity;
 import com.cds.promotion.module.visit.VisitActivity;
 import com.cds.promotion.util.AppManager;
+import com.cds.promotion.util.picasso.PicassoCircleTransform;
 import com.cds.promotion.view.CustomDialog;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,8 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
     public static final String MESSAGE_BROADCAST_ACTION = "com.cds.promotion.action.message";
     @Bind(R.id.right_img)
     ImageView rightImg;
+    @Bind(R.id.head_img)
+    ImageView headImg;
     @Bind(R.id.name)
     AppCompatTextView nameTv;
     @Bind(R.id.company)
@@ -178,8 +182,8 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
                 break;
             case 5:
                 new CustomDialog(this)
-                        .setTitle("确认退出该账号？")
-                        .setPositiveButton("确定", new View.OnClickListener() {
+                        .setTitle(getResources().getString(R.string.exit_account))
+                        .setPositiveButton( new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if (null != mSocketService) {
@@ -197,6 +201,11 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
 
     @Override
     public void getSalesInfoSuccess(SalesInfo resp) {
+        Picasso.with(MainActivity.this)
+                .load(resp.getHead_img())
+                .error(R.mipmap.userportrait)
+                .transform(new PicassoCircleTransform())
+                .into(headImg);
         nameTv.setText(Html.fromHtml(resp.getName() + "&nbsp&nbsp<font color='#999999'>Welcome!</font>"));
         companyTv.setText(resp.getCooperative_name());
         jobNumberTv.setText(Html.fromHtml("<font color='#999999'>Job number :&nbsp&nbsp</font>" + resp.getJob_no()));

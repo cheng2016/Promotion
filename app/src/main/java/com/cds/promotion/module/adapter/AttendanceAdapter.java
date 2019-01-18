@@ -1,6 +1,7 @@
 package com.cds.promotion.module.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,8 +72,11 @@ public class AttendanceAdapter extends BaseAdapter {
         if (mDataList != null && !mDataList.isEmpty()) {
             ClockOnInfo bean = mDataList.get(index);
             holder.timeTv.setText(bean.getGo_work_date());
-            holder.checkInTv.setText(bean.getGo_work_active_time());
-            holder.checkInTv.setText(bean.getOff_work_active_time());
+
+            holder.checkInTv.setText(Html.fromHtml("<font color='#999999'>Attendance: &nbsp&nbsp</font>"
+                    + bean.getGo_work_active_time() +  "<font color='#FF4A56'>" + bean.getLate() + "&nbsp&nbsp</font>"));
+            holder.checkOutTv.setText(Html.fromHtml("&nbsp&nbsp<font color='#999999'>Off Attendance: &nbsp&nbsp</font>"
+                    + bean.getOff_work_active_time() +  "&nbsp&nbsp<font color='#FF4A56'>" + bean.getLeave_early() + "&nbsp&nbsp</font>"));
         }
         return view;
     }

@@ -1,5 +1,6 @@
 package com.cds.promotion.module.attendance;
 
+import com.cds.promotion.data.entity.ClockOnInfo;
 import com.cds.promotion.module.BasePresenter;
 import com.cds.promotion.module.BaseView;
 
@@ -10,16 +11,20 @@ import com.cds.promotion.module.BaseView;
  */
 public interface AttendanceContract {
     interface View extends BaseView<Presenter> {
+        void getClockOnSuccess(ClockOnInfo resp);
+
         void clockOnSuccess();
+
+        void clockOnFailed();
     }
 
     interface Presenter extends BasePresenter {
-        void clockOn( String time,
-                     String type);
+        void getClockOn();
+
+        void clockOn(String type);
 
         void clockOn(String location,
                      String address,
-                     String time,
                      String description,
                      String type);
     }

@@ -12,39 +12,156 @@
         android:id="@+id/achievement_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/widget_size_44"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_size_14"
+        android:background="#5380F4"
+        android:gravity="center_vertical"
         android:paddingLeft="@dimen/widget_size_10"
         android:text="The existing competitive staff:100"
-        android:gravity="center_vertical"
-        android:background="#5380F4"/>
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_14" />
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <com.cheng.refresh.library.PullToRefreshListView
-            android:id="@+id/refresh_listView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@null"
-            android:listSelector="@android:color/transparent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/empty_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent">
+            android:layout_height="@dimen/widget_size_99">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/widget_size_8"
+                android:background="@mipmap/bg_ranking"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/signing_rand_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/widget_size_24"
+                    android:text="No.1"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_14"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:drawablePadding="@dimen/widget_size_16"
-                android:gravity="center_horizontal"
-                android:text="No Achievement Record"
-                android:textColor="#999999" />
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/widget_size_24"
+                android:layout_marginRight="@dimen/widget_size_16"
+                android:text="Signing store"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_18"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="@dimen/widget_size_240"
+                android:layout_height="@dimen/widget_min_size_2"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:background="@color/splite_line" />
         </RelativeLayout>
-    </FrameLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/widget_size_99">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/widget_size_8"
+                android:background="@mipmap/bg_ranking"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/sales_rand_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/widget_size_24"
+                    android:text="No.1"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_14"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/widget_size_24"
+                android:layout_marginRight="@dimen/widget_size_16"
+                android:text="Sales orders"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_18"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="@dimen/widget_size_240"
+                android:layout_height="@dimen/widget_min_size_2"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:background="@color/splite_line" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/widget_size_99">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/widget_size_8"
+                android:background="@mipmap/bg_ranking"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/amount_rand_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/widget_size_24"
+                    android:text="No.1"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_14"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/widget_size_24"
+                android:layout_marginRight="@dimen/widget_size_16"
+                android:text="The total amount\nof purchase"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_18"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="@dimen/widget_size_240"
+                android:layout_height="@dimen/widget_min_size_2"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:background="@color/splite_line" />
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

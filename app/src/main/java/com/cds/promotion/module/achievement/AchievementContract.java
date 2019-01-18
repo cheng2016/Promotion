@@ -1,5 +1,6 @@
 package com.cds.promotion.module.achievement;
 
+import com.cds.promotion.data.entity.AchievemenBean;
 import com.cds.promotion.module.BasePresenter;
 import com.cds.promotion.module.BaseView;
 
@@ -10,10 +11,10 @@ import com.cds.promotion.module.BaseView;
  */
 public interface AchievementContract {
     interface View extends BaseView<Presenter> {
-
+        void getAchievementSuccess(AchievemenBean resp);
     }
 
     interface Presenter extends BasePresenter {
-
+        void getAchievement();
     }
 }

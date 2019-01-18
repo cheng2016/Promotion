@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginBottom="@dimen/widget_size_3"
-        android:paddingBottom="@dimen/widget_size_18"
+        android:paddingBottom="@dimen/widget_size_16"
         android:orientation="vertical">
 
         <TextView

@@ -6,15 +6,24 @@ import android.widget.TextView;
 
 import com.cds.promotion.R;
 import com.cds.promotion.base.BaseActivity;
+import com.cds.promotion.data.entity.AchievemenBean;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * @Author: chengzj
  * @CreateDate: 2019/1/16 14:21
  * @Version: 3.0.0
  * 业绩
- *
  */
-public class AchievementActivity  extends BaseActivity implements View.OnClickListener, AchievementContract.View {
+public class AchievementActivity extends BaseActivity implements View.OnClickListener, AchievementContract.View {
+    @Bind(R.id.signing_rand_tv)
+    TextView signingRandTv;
+    @Bind(R.id.sales_rand_tv)
+    TextView salesRandTv;
+    @Bind(R.id.amount_rand_tv)
+    TextView amountRandTv;
 
     AchievementContract.Presenter mPresenter;
 
@@ -34,6 +43,8 @@ public class AchievementActivity  extends BaseActivity implements View.OnClickLi
     @Override
     protected void initData() {
         new AchievementPresenter(this);
+
+        mPresenter.getAchievement();
     }
 
     @Override
@@ -45,14 +56,15 @@ public class AchievementActivity  extends BaseActivity implements View.OnClickLi
         }
     }
 
-
     @Override
     public void setPresenter(AchievementContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
     @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
+    public void getAchievementSuccess(AchievemenBean resp) {
+        salesRandTv.setText("No." + resp.getSales_rank());
+        signingRandTv.setText("No." + resp.getDealer_rank());
+        amountRandTv.setText("No." + resp.getOrder_rank());
     }
 }

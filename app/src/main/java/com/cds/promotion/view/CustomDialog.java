@@ -61,7 +61,7 @@ public class CustomDialog extends Dialog {
         confirmBtn = (Button) dialogView.findViewById(R.id.confirm);
         cancelBtn = (Button) dialogView.findViewById(R.id.cancel);
         completeBtn = dialogView.findViewById(R.id.complete);
-        setCancelButton("取消", new View.OnClickListener() {
+        setCancelButton(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
@@ -134,6 +134,17 @@ public class CustomDialog extends Dialog {
         return this;
     }
 
+    public CustomDialog setPositiveButton(final View.OnClickListener listener) {
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(view);
+                dismiss();
+            }
+        });
+        return this;
+    }
+
     public CustomDialog setPositiveButton(String str, final View.OnClickListener listener) {
         confirmBtn.setText(str);
         confirmBtn.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +170,16 @@ public class CustomDialog extends Dialog {
         return this;
     }
 
+    public CustomDialog setCancelButton(final View.OnClickListener listener) {
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(view);
+                dismiss();
+            }
+        });
+        return this;
+    }
 
     public CustomDialog setCancelButton(String str, final View.OnClickListener listener) {
         cancelBtn.setText(str);

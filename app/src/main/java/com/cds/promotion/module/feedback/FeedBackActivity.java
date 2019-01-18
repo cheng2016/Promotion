@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ import com.cds.promotion.module.adapter.ImageListAdapter;
 import com.cds.promotion.util.ToastUtils;
 import com.cds.promotion.view.ActionSheetDialog;
 import com.cds.promotion.view.ActionSheetDialog.*;
-import com.cds.promotion.view.CustomDialog;
+import com.cds.promotion.view.HorizontalListView;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
     @Bind(R.id.image_status)
     TextView imageStatus;
     @Bind(R.id.img_grid_view)
-    GridView imgGridView;
+    HorizontalListView imgGridView;
 
     ImageListAdapter adapter;
 
@@ -135,9 +136,9 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
             case R.id.commit_btn:
                 String content = sosMsgEdit.getText().toString();
                 if (TextUtils.isEmpty(content)) {
-                    ToastUtils.showShort(App.getInstance(), "请先填写反馈内容");
+                    ToastUtils.showShort(App.getInstance(), "Please fill in the feedback first");
                 } else if (content.length() < 20) {
-                    ToastUtils.showShort(App.getInstance(), "请填写不低于20个字的内容描述");
+                    ToastUtils.showShort(App.getInstance(), "Please fill in a description of no less than 20 words");
                 } else {
                     showProgressDilog();
 //                    mPresenter.feedback(content, mFilePath);
@@ -155,7 +156,7 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void feedbackSuccess() {
-        ToastUtils.showShort(App.getInstance(), "意见反馈成功");
+        ToastUtils.showShort(App.getInstance(), "Successful feedback");
         finish();
     }
 
@@ -223,6 +224,8 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
             List<String> stringList = adapter.getDataList();
             stringList.add(mAvatarFile.getAbsolutePath());
             adapter.setDataList(stringList);
+            imageStatus.setText("Upload Image(" + stringList.size() + "/"
+                    + IMAGE_MAX_LENGTH + ")");
         }
     }
 
@@ -285,14 +288,14 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
                 .builder()
                 .setCancelable(true)
                 .setCanceledOnTouchOutside(true)
-                .addSheetItem("拍照", SheetItemColor.Blue,
+                .addSheetItem(getResources().getString(R.string.take_photo), SheetItemColor.Blue,
                         new OnSheetItemClickListener() {
                             @Override
                             public void onClick(int which) {
                                 openCamera();
                             }
                         })
-                .addSheetItem("从手机相册选择", SheetItemColor.Blue,
+                .addSheetItem(getResources().getString(R.string.choose_album), SheetItemColor.Blue,
                         new OnSheetItemClickListener() {
                             @Override
                             public void onClick(int which) {

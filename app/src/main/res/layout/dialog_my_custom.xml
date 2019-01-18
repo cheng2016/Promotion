@@ -78,6 +78,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/button_plan_left_selector"
                 android:text="@string/cancel"
+                android:textAllCaps="false"
                 android:textColor="@color/cancel_text_color"
                 android:textSize="@dimen/font_size_15" />
 
@@ -93,6 +94,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/button_plan_right_selector"
                 android:text="@string/confirm"
+                android:textAllCaps="false"
                 android:textColor="@color/confirm_text_color"
                 android:textSize="@dimen/font_size_15" />
         </LinearLayout>

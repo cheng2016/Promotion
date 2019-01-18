@@ -28,7 +28,7 @@
             android:layout_marginTop="@dimen/widget_size_8"
             android:text="Attendance:"
             android:fontFamily="sans-serif-light"
-            android:textColor="@color/disable_color"
+            android:textColor="@color/black"
             android:textSize="@dimen/font_size_16" />
 
 
@@ -39,7 +39,7 @@
             android:layout_marginTop="@dimen/widget_size_8"
             android:text="Off Attendance:"
             android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/disable_color"
+            android:textColor="@color/black"
             android:textSize="@dimen/font_size_16" />
 
     </LinearLayout>
