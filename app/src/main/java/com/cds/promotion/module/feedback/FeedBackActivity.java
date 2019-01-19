@@ -18,8 +18,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-
-import android.widget.GridView;
 import android.widget.TextView;
 
 import com.cds.promotion.App;
@@ -28,7 +26,8 @@ import com.cds.promotion.base.BaseActivity;
 import com.cds.promotion.module.adapter.ImageListAdapter;
 import com.cds.promotion.util.ToastUtils;
 import com.cds.promotion.view.ActionSheetDialog;
-import com.cds.promotion.view.ActionSheetDialog.*;
+import com.cds.promotion.view.ActionSheetDialog.OnSheetItemClickListener;
+import com.cds.promotion.view.ActionSheetDialog.SheetItemColor;
 import com.cds.promotion.view.HorizontalListView;
 
 import java.io.File;
@@ -61,8 +60,6 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
 
     ImageListAdapter adapter;
 
-//    private String mFilePath = "";
-
     private FeedBackPresenter mPresenter;
 
     @Override
@@ -71,7 +68,6 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         mPresenter.unsubscribe();
         if (mAvatarFile != null) {
             mAvatarFile.delete();
-//            mFilePath = "";
         }
     }
 
@@ -216,11 +212,6 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         }
         //调用系统裁剪，返回结果
         if (requestCode == PHOTO_REQUEST_CROP_PHOTO && resultCode == Activity.RESULT_OK) {
-//            Picasso.with(this)
-//                    .load(mAvatarFile)
-//                    .into(feedbackImg);
-//            mFilePath = mAvatarFile.getAbsolutePath();
-//            delImg.setVisibility(View.VISIBLE);
             List<String> stringList = adapter.getDataList();
             stringList.add(mAvatarFile.getAbsolutePath());
             adapter.setDataList(stringList);

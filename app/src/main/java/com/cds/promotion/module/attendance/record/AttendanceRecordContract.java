@@ -1,11 +1,8 @@
 package com.cds.promotion.module.attendance.record;
 
-import com.cds.promotion.data.entity.ClockOnInfo;
 import com.cds.promotion.data.entity.ClockOnList;
 import com.cds.promotion.module.BasePresenter;
 import com.cds.promotion.module.BaseView;
-
-import java.util.List;
 
 /**
  * @Author: chengzj
@@ -14,7 +11,9 @@ import java.util.List;
  */
 public interface AttendanceRecordContract {
     interface View extends BaseView<Presenter> {
-        void getClockOnSuccess(ClockOnList resp);
+        void getClockOnListSuccess(ClockOnList resp);
+
+        void getClockOnListFail();
     }
 
     interface Presenter extends BasePresenter {

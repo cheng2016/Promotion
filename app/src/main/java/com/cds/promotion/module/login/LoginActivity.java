@@ -2,9 +2,6 @@ package com.cds.promotion.module.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Message;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,11 +13,8 @@ import com.cds.promotion.App;
 import com.cds.promotion.R;
 import com.cds.promotion.base.BaseActivity;
 import com.cds.promotion.module.main.MainActivity;
-import com.cds.promotion.util.Logger;
 import com.cds.promotion.util.PreferenceConstants;
 import com.cds.promotion.util.PreferenceUtils;
-
-import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.OnClick;

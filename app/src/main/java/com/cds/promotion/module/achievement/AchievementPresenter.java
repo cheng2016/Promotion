@@ -4,7 +4,6 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.cds.promotion.App;
 import com.cds.promotion.data.BaseResp;
 import com.cds.promotion.data.entity.AchievemenBean;
-import com.cds.promotion.data.entity.ClockOnInfo;
 import com.cds.promotion.data.entity.Info;
 import com.cds.promotion.data.source.remote.BaseObserver;
 import com.cds.promotion.data.source.remote.HttpApi;

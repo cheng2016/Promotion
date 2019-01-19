@@ -9,7 +9,6 @@ import com.cds.promotion.base.BaseActivity;
 import com.cds.promotion.data.entity.AchievemenBean;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * @Author: chengzj

@@ -1,7 +1,7 @@
 package com.cds.promotion.module.visit.record;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,6 +13,7 @@ import com.cds.promotion.base.BaseActivity;
 import com.cds.promotion.data.entity.VisitBean;
 import com.cds.promotion.data.entity.VisitingList;
 import com.cds.promotion.module.adapter.VisitAdapter;
+import com.cds.promotion.module.visit.detail.VisitDetailActivity;
 import com.cheng.refresh.library.PullToRefreshBase;
 import com.cheng.refresh.library.PullToRefreshListView;
 
@@ -103,10 +104,10 @@ public class VisitRecordActivity extends BaseActivity implements PullToRefreshBa
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        Intent intent = new Intent();
-//        intent.setClass(getActivity(), DiagnosticReportActivity.class);
-//        intent.putExtra("orderId", adapter.getDataList().get(position).getOrderId());
-//        startActivity(intent);
+        Intent intent = new Intent();
+        intent.setClass(VisitRecordActivity.this, VisitDetailActivity.class);
+        intent.putExtra("visiting_id", adapter.getDataList().get(position).getVisiting_id());
+        startActivity(intent);
     }
 
     @Override
@@ -134,6 +135,13 @@ public class VisitRecordActivity extends BaseActivity implements PullToRefreshBa
         }
         mDataList.addAll(list);
         adapter.setDataList(mDataList);
+        refreshListView.onPullDownRefreshComplete();
+        refreshListView.onPullUpRefreshComplete();
+        refreshListView.setHasMoreData(hasMoreData);
+    }
+
+    @Override
+    public void getVisitingListFail() {
         refreshListView.onPullDownRefreshComplete();
         refreshListView.onPullUpRefreshComplete();
         refreshListView.setHasMoreData(hasMoreData);

@@ -10,14 +10,14 @@ public class VisitBean {
     /**
      * dealer_img : https://images.chuanboyi.com/201706/5809fcb452.jpg
      * visiting_date : 1546946871000
-     * user_id : 1
+     * visiting_id : 1
      * dealer_address : asdfdsfad
      * dealer_name : SASF phone shop 1
      */
 
     private String dealer_img;
     private long visiting_date;
-    private int user_id;
+    private String visiting_id;
     private String dealer_address;
     private String dealer_name;
 
@@ -37,12 +37,12 @@ public class VisitBean {
         this.visiting_date = visiting_date;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public String getVisiting_id() {
+        return visiting_id;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setVisiting_id(String visiting_id) {
+        this.visiting_id = visiting_id;
     }
 
     public String getDealer_address() {

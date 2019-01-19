@@ -99,7 +99,7 @@ public class AttendanceRecordActivity extends BaseActivity implements View.OnCli
     }
 
     @Override
-    public void getClockOnSuccess(ClockOnList resp) {
+    public void getClockOnListSuccess(ClockOnList resp) {
         List<ClockOnInfo> list = resp.getClock_on_list();
         if (!isLoadMore) {
             mDataList.clear();
@@ -118,6 +118,13 @@ public class AttendanceRecordActivity extends BaseActivity implements View.OnCli
         }
         mDataList.addAll(list);
         adapter.setDataList(mDataList);
+        refreshListView.onPullDownRefreshComplete();
+        refreshListView.onPullUpRefreshComplete();
+        refreshListView.setHasMoreData(hasMoreData);
+    }
+
+    @Override
+    public void getClockOnListFail() {
         refreshListView.onPullDownRefreshComplete();
         refreshListView.onPullUpRefreshComplete();
         refreshListView.setHasMoreData(hasMoreData);

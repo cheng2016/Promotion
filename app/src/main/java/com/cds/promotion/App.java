@@ -5,7 +5,6 @@ import android.os.Environment;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.Utils;
-import com.cds.promotion.util.CrashHandler;
 import com.cds.promotion.util.DeviceUtils;
 import com.cds.promotion.util.Logger;
 import com.cds.promotion.util.PreferenceConstants;

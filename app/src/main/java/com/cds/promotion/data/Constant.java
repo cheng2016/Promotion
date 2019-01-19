@@ -47,4 +47,10 @@ public interface Constant {
     String OFF_WORK = "0";
 
     String ON_WORK = "1";
+
+    int STORE_IN_AUDIT = 0;
+
+    int STORE_SIGNED = 1;
+
+    int STORE_TO_BE_SIGNED = 2;
 }

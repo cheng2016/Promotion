@@ -2,6 +2,7 @@ package com.cds.promotion.module.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.cds.promotion.R;
+import com.cds.promotion.data.entity.StoreBean;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,22 +26,22 @@ import butterknife.ButterKnife;
  */
 public class StoreAdapter extends BaseAdapter {
     Context context;
-    List mDataList = new ArrayList<>();
+    List<StoreBean> mDataList = new ArrayList<>();
 
     public StoreAdapter(Context context) {
         this.context = context;
     }
 
-    public StoreAdapter(Context context, List mDataList) {
+    public StoreAdapter(Context context, List<StoreBean> mDataList) {
         this.context = context;
         this.mDataList = mDataList;
     }
 
-    public List getDataList() {
+    public List<StoreBean> getDataList() {
         return mDataList;
     }
 
-    public void setDataList(List mDataList) {
+    public void setDataList(List<StoreBean> mDataList) {
         this.mDataList = mDataList;
         notifyDataSetChanged();
     }
@@ -62,24 +65,27 @@ public class StoreAdapter extends BaseAdapter {
     public View getView(final int index, View view, ViewGroup viewGroup) {
         ViewHolder holder;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_visit, null);
+            view = LayoutInflater.from(context).inflate(R.layout.item_store, null);
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
         if (mDataList != null && !mDataList.isEmpty()) {
-//            VisitBean bean = mDataList.get(index);
-//            holder.titleTv.setText(bean.getTitle());
-//            holder.contentTv.setText(bean.getContent());
-//            holder.timeTv.setText(DateUtils.parseMillisToString(Long.parseLong(bean.getTailtime())));
+            StoreBean bean = mDataList.get(index);
+            holder.titleTv.setText(bean.getName());
+            holder.contentTv.setText(bean.getAddress());
+            if(!TextUtils.isEmpty(bean.getImg())){
+                Picasso.with(context)
+                        .load(bean.getImg())
+                        .into(holder.describeImg);
+            }
         }
         return view;
     }
 
+
     static class ViewHolder {
-        @Bind(R.id.time_tv)
-        TextView timeTv;
         @Bind(R.id.describe_img)
         AppCompatImageView describeImg;
         @Bind(R.id.title_tv)

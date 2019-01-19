@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/action_bar" />
+
+    <com.cheng.refresh.library.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/action_bar_height"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/widget_size_160">
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/widget_size_10"
+                android:layout_marginTop="@dimen/widget_size_16"
+                android:layout_marginRight="@dimen/widget_size_10"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/current_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/widget_size_8"
+                    android:text="JMD Pacific Square, Behind 32 Milestone, Delhi-Jaipur Highway (NH - 08) Gurgaon, Haryana-122002 India"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/widget_size_8"
+                    android:text="Visiting Shop:"
+                    android:textColor="@color/disable_color"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/shop_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/widget_size_8"
+                    android:text="(In Audit) Store Name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/widget_size_8"
+                    android:text="Visiting Time:"
+                    android:textColor="@color/disable_color"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/widget_size_8"
+                    android:text="2019.01.08 18:00"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/widget_size_8"
+                    android:text="Image:"
+                    android:textColor="@color/disable_color"
+                    android:textSize="@dimen/font_size_16" />
+
+                <com.cds.promotion.view.HorizontalListView
+                    android:id="@+id/img_list_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/widget_size_76"
+                    android:divider="@null"
+                    android:listSelector="@color/trans"
+                    android:numColumns="4"
+                    android:scrollbars="none">
+
+                </com.cds.promotion.view.HorizontalListView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Visiting Notes(total 200):"
+                    android:textColor="@color/disable_color"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/widget_size_8"
+                    android:layout_marginBottom="@dimen/widget_size_20"
+                    android:text="Time will abandon those funny oath, until we also agree.no man or woman is worth your tears, and the one who is, won't make you cry.do you understand？"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_16" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.cheng.refresh.library.ReboundScrollView>
+</FrameLayout>

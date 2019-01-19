@@ -4,15 +4,10 @@ import com.cds.promotion.data.BaseResp;
 import com.cds.promotion.data.entity.AchievemenBean;
 import com.cds.promotion.data.entity.ClockOnInfo;
 import com.cds.promotion.data.entity.ClockOnList;
-import com.cds.promotion.data.entity.DoctorInfo;
 import com.cds.promotion.data.entity.Info;
-import com.cds.promotion.data.entity.Medicine;
-import com.cds.promotion.data.entity.Order;
-import com.cds.promotion.data.entity.OrderInfo;
 import com.cds.promotion.data.entity.SalesInfo;
+import com.cds.promotion.data.entity.StoreList;
 import com.cds.promotion.data.entity.VisitingList;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -50,6 +45,12 @@ public interface HttpApi {
     @GET("visiting/list")
     Observable<BaseResp<VisitingList>> getVisitingList(@Query("content") String json);
 
+    @GET("visiting/info")
+    Observable<BaseResp> getVisitingInfo(@Query("content") String json);
+
     @GET("sales/getAchievement")
     Observable<BaseResp<AchievemenBean>> getAchievement(@Query("content") String json);
+
+    @GET("dealer/list")
+    Observable<BaseResp<StoreList>> getDealerList(@Query("content") String json);
 }

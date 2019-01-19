@@ -7,6 +7,9 @@ import android.widget.RelativeLayout;
 
 import com.cds.promotion.R;
 import com.cds.promotion.base.BaseFragment;
+import com.cds.promotion.data.Constant;
+import com.cds.promotion.data.entity.StoreBean;
+import com.cds.promotion.data.entity.StoreList;
 import com.cds.promotion.module.adapter.StoreAdapter;
 import com.cheng.refresh.library.PullToRefreshBase;
 import com.cheng.refresh.library.PullToRefreshListView;
@@ -37,7 +40,7 @@ public class StoreFragment extends BaseFragment implements StoreContract.View, P
     private int offset = 0;
     private boolean hasMoreData = false;//是否有更多数据
     private boolean isLoadMore = false;//是否加载更多
-    List mDataList = new ArrayList<>();
+    List<StoreBean> mDataList = new ArrayList<>();
 
     private int type = -1;
 
@@ -69,6 +72,8 @@ public class StoreFragment extends BaseFragment implements StoreContract.View, P
     protected void initData() {
         new StorePresenter(this);
         type = getArguments().getInt("type");
+//        mPresenter.getDealerList(type, offset);
+
         if (type == 2) {
 //            emptyImg.setImageResource(R.mipmap.icn_empty_picture);
 //            emptyTv.setText("当前没有图片");
@@ -77,6 +82,7 @@ public class StoreFragment extends BaseFragment implements StoreContract.View, P
 //            emptyTv.setText("当前没有视频");
         }
 //        errorLayout.setVisibility(View.VISIBLE);
+        getData();
     }
 
     @Override
@@ -93,10 +99,18 @@ public class StoreFragment extends BaseFragment implements StoreContract.View, P
     }
 
     private void getData() {
-        if (type == 2) {
-//            mPresenter.getImage(offset, REQUEST_NUM);
-        } else {
-//            mPresenter.getVideo(type, offset, REQUEST_NUM);
+        switch (type) {
+            case 0:
+                mPresenter.getDealerList(Constant.STORE_IN_AUDIT, offset);
+                break;
+            case 1:
+                mPresenter.getDealerList(Constant.STORE_SIGNED, offset);
+                break;
+            case 2:
+                mPresenter.getDealerList(Constant.STORE_TO_BE_SIGNED, offset);
+                break;
+            default:
+                break;
         }
     }
 
@@ -119,4 +133,35 @@ public class StoreFragment extends BaseFragment implements StoreContract.View, P
         mPresenter = presenter;
     }
 
+    @Override
+    public void getDealerListSuccess(StoreList resp) {
+        List<StoreBean> list = resp.getDealers();
+        if (!isLoadMore) {
+            mDataList.clear();
+            if (list.isEmpty()) {
+                emptyLayout.setVisibility(View.VISIBLE);
+                refreshListView.setScrollLoadEnabled(false);
+            } else {
+                emptyLayout.setVisibility(View.GONE);
+                refreshListView.setScrollLoadEnabled(true);
+            }
+        }
+        if (list.size() == REQUEST_NUM) {
+            hasMoreData = true;
+        } else {
+            hasMoreData = false;
+        }
+        mDataList.addAll(list);
+        adapter.setDataList(mDataList);
+        refreshListView.onPullDownRefreshComplete();
+        refreshListView.onPullUpRefreshComplete();
+        refreshListView.setHasMoreData(hasMoreData);
+    }
+
+    @Override
+    public void getDealerListFail() {
+        refreshListView.onPullDownRefreshComplete();
+        refreshListView.onPullUpRefreshComplete();
+        refreshListView.setHasMoreData(hasMoreData);
+    }
 }

@@ -12,6 +12,8 @@ import com.cds.promotion.module.BaseView;
 public interface VisitRecordContract {
     interface View extends BaseView<Presenter> {
         void getVisitingListSuccess(VisitingList resp);
+
+        void getVisitingListFail();
     }
 
     interface Presenter extends BasePresenter {

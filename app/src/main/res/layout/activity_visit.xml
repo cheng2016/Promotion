@@ -1,17 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_content_bg"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <include layout="@layout/action_bar" />
 
-    <FrameLayout
+    <com.cheng.refresh.library.ReboundScrollView
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/action_bar_height"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </FrameLayout>
-</LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/widget_size_160">
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/widget_size_10"
+                android:layout_marginTop="@dimen/widget_size_16"
+                android:layout_marginRight="@dimen/widget_size_10"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Current Location:"
+                    android:textColor="@color/disable_color"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/current_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/widget_size_8"
+                    android:text="JMD Pacific Square, Behind 32 Milestone, Delhi-Jaipur Highway (NH - 08) Gurgaon, Haryana-122002 India"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/widget_size_8"
+                    android:text="Visiting Shop:"
+                    android:textColor="@color/disable_color"
+                    android:textSize="@dimen/font_size_16" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/widget_size_46"
+                    android:layout_marginTop="@dimen/widget_size_8">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/shop_name_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/widget_size_45"
+                        android:background="@null"
+                        android:ems="30"
+                        android:gravity="left|center_vertical"
+                        android:hint="Selection Or Input"
+                        android:imeActionId="6"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="text"
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/splite_line" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/widget_min_size_2"
+                        android:layout_marginTop="@dimen/widget_size_45"
+                        android:background="@color/enable_color"/>
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/add_shop_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/widget_size_8"
+                        android:src="@mipmap/addstore"
+                        android:text="" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/image_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/widget_size_8"
+                    android:text="Upload Image(0/3)"
+                    android:textColor="@color/disable_color"
+                    android:textSize="@dimen/font_size_16" />
+
+                <com.cds.promotion.view.HorizontalListView
+                    android:id="@+id/img_list_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/widget_size_76"
+                    android:divider="@null"
+                    android:listSelector="@color/trans"
+                    android:numColumns="4"
+                    android:scrollbars="none"></com.cds.promotion.view.HorizontalListView>
+
+                <TextView
+                    android:id="@+id/edit_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Visiting Notes(0/300)"
+                    android:textColor="@color/disable_color"
+                    android:textSize="@dimen/font_size_16" />
+
+                <EditText
+                    android:id="@+id/note_edit"
+                    style="@style/inputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/widget_size_120"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="@dimen/widget_size_8"
+                    android:layout_marginBottom="@dimen/widget_size_60"
+                    android:gravity="left|top"
+                    android:hint="Please enter your visit notes."
+                    android:maxLength="300"
+                    android:padding="@dimen/widget_size_6" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.cheng.refresh.library.ReboundScrollView>
+
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/submit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_button_h"
+        android:layout_gravity="bottom"
+        android:background="#5380F4"
+        android:text="Submission"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_16" />
+
+</FrameLayout>
