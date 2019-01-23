@@ -65,8 +65,15 @@ public class AttendancePresenter implements AttendanceContract.Presenter {
                         if ("200".equals(resp.getInfo().getCode())) {
                             view.getClockOnSuccess(resp.getData());
                         } else {
+                            view.getClockOnFail();
                             ToastUtils.showShort(resp.getInfo().getInfo());
                         }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        view.getClockOnFail();
                     }
 
                     @Override
@@ -76,38 +83,9 @@ public class AttendancePresenter implements AttendanceContract.Presenter {
     }
 
     @Override
-    public void clockOn(String type) {
+    public void clockOn(String type,String location) {
         String userId = PreferenceUtils.getPrefString(App.getInstance(), PreferenceConstants.USER_ID, "");
-        ClockOnReq req = new ClockOnReq(userId, type);
-        mHttpApi.clockOn(new Gson().toJson(req))
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<BaseResp>() {
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        mCompositeDisposable.add(d);
-                    }
-
-                    @Override
-                    public void onNext(BaseResp resp) {
-                        if ("200".equals(resp.getInfo().getCode())) {
-                            view.clockOnSuccess();
-                        } else {
-                            ToastUtils.showShort(resp.getInfo().getInfo());
-                        }
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });
-    }
-
-    @Override
-    public void clockOn(String location, String address, String description, String type) {
-        String userId = PreferenceUtils.getPrefString(App.getInstance(), PreferenceConstants.USER_ID, "");
-        ClockOnReq req = new ClockOnReq();
+        ClockOnReq req = new ClockOnReq(userId, type,location);
         mHttpApi.clockOn(new Gson().toJson(req))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -141,7 +119,7 @@ public class AttendancePresenter implements AttendanceContract.Presenter {
     }
 
     public static void main(String[] args) {
-        ClockOnReq req = new ClockOnReq("1", "海松大厦", "2018-02-02 09:06", "", "0");
+        ClockOnReq req = new ClockOnReq("1", "0", "2018-02-02 09:06");
         System.out.printf(new Gson().toJson(req));
     }
 }

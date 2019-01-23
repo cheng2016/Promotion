@@ -2,16 +2,12 @@ package com.cds.promotion.module.visit.detail;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cds.promotion.data.BaseResp;
-import com.cds.promotion.data.entity.VisitingList;
+import com.cds.promotion.data.entity.VisitingInfo;
 import com.cds.promotion.data.source.remote.BaseObserver;
 import com.cds.promotion.data.source.remote.HttpApi;
 import com.cds.promotion.data.source.remote.HttpFactory;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -53,7 +49,7 @@ public class VisitDetailPresenter implements VisitDetailContract.Presenter {
         mHttpApi.getVisitingInfo(object.toString())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<BaseResp>() {
+                .subscribe(new BaseObserver<BaseResp<VisitingInfo>>() {
 
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -61,9 +57,9 @@ public class VisitDetailPresenter implements VisitDetailContract.Presenter {
                     }
 
                     @Override
-                    public void onNext(BaseResp resp) {
+                    public void onNext(BaseResp<VisitingInfo> resp) {
                         if ("200".equals(resp.getInfo().getCode())) {
-                            view.getVisitingInfoSuccess();
+                            view.getVisitingInfoSuccess(resp.getData());
                         } else {
                             ToastUtils.showShort(resp.getInfo().getInfo());
                         }

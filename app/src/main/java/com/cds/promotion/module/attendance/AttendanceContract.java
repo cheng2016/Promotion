@@ -13,6 +13,8 @@ public interface AttendanceContract {
     interface View extends BaseView<Presenter> {
         void getClockOnSuccess(ClockOnInfo resp);
 
+        void getClockOnFail();
+
         void clockOnSuccess();
 
         void clockOnFailed();
@@ -21,11 +23,6 @@ public interface AttendanceContract {
     interface Presenter extends BasePresenter {
         void getClockOn();
 
-        void clockOn(String type);
-
-        void clockOn(String location,
-                     String address,
-                     String description,
-                     String type);
+        void clockOn(String type, String location);
     }
 }

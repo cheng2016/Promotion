@@ -2,6 +2,7 @@ package com.cds.promotion.module.store;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -25,7 +26,7 @@ import butterknife.ButterKnife;
  * @CreateDate: 2019/1/17 10:25
  * @Version: 3.0.0
  */
-public class StoreFragment extends BaseFragment implements StoreContract.View, PullToRefreshBase.OnRefreshListener<ListView> {
+public class StoreFragment extends BaseFragment implements StoreContract.View, PullToRefreshBase.OnRefreshListener<ListView>, AdapterView.OnItemClickListener {
     @Bind(R.id.empty_layout)
     RelativeLayout emptyLayout;
     @Bind(R.id.refresh_listView)
@@ -66,6 +67,7 @@ public class StoreFragment extends BaseFragment implements StoreContract.View, P
         mListView = refreshListView.getRefreshableView();
         adapter = new StoreAdapter(getActivity());
         mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -163,5 +165,27 @@ public class StoreFragment extends BaseFragment implements StoreContract.View, P
         refreshListView.onPullDownRefreshComplete();
         refreshListView.onPullUpRefreshComplete();
         refreshListView.setHasMoreData(hasMoreData);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (listener != null) {
+            listener.onStoreClick(adapter.getDataList().get(position).getId(),adapter.getDataList().get(position).getName());
+        }
+    }
+
+    OnStoreClickListener listener;
+
+    public StoreFragment setListener(Boolean isChoose,OnStoreClickListener listener) {
+        if(isChoose){
+            this.listener = listener;
+        }else {
+            this.listener = null;
+        }
+        return this;
+    }
+
+    public interface OnStoreClickListener {
+        void onStoreClick(String dealer_id,String name);
     }
 }

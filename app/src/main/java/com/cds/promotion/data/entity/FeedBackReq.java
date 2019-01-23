@@ -10,12 +10,10 @@ public class FeedBackReq {
 
     private int user_id;
     private String content;
-    private String device_id;
 
-    public FeedBackReq(int user_id, String content, String device_id) {
+    public FeedBackReq(int user_id, String content) {
         this.user_id = user_id;
         this.content = content;
-        this.device_id = device_id;
     }
 
     public int getUser_id() {
@@ -32,13 +30,5 @@ public class FeedBackReq {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getDevice_id() {
-        return device_id;
-    }
-
-    public void setDevice_id(String device_id) {
-        this.device_id = device_id;
     }
 }

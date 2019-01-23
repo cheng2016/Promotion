@@ -14,6 +14,7 @@ import com.cds.promotion.util.ToastUtils;
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -36,7 +37,7 @@ public class FeedBackPresenter implements FeedBackContract.Presenter {
         this.view = view;
         view.setPresenter(this);
         mCompositeDisposable = new CompositeDisposable();
-        mHttpApi =  HttpFactory.createRetrofit2(HttpApi.class);
+        mHttpApi = HttpFactory.createRetrofit2(HttpApi.class);
     }
 
     @Override
@@ -50,34 +51,34 @@ public class FeedBackPresenter implements FeedBackContract.Presenter {
     }
 
     @Override
-    public void feedback(String content, final String imagePath) {
-        int userId = Integer.parseInt(PreferenceUtils.getPrefString(App.getInstance(), PreferenceConstants.USER_ID,""));
-        String deviceId = PreferenceUtils.getPrefString(App.getInstance(), PreferenceConstants.DEVICE_ID,"");
-        final FeedBackReq req = new FeedBackReq(userId, content, deviceId);
+    public void feedback(String content, final List<String> imageUrls) {
+        int userId = Integer.parseInt(PreferenceUtils.getPrefString(App.getInstance(), PreferenceConstants.USER_ID, ""));
+        final FeedBackReq req = new FeedBackReq(userId, content);
         Observable.just("")
                 .subscribeOn(Schedulers.io())                // 切换至IO线程
                 .flatMap(new Function<String, ObservableSource<BaseResp>>() {
                     @Override
                     public ObservableSource<BaseResp> apply(String s) throws Exception {
-                        File file = new File(imagePath);
-                        if(!TextUtils.isEmpty(imagePath) && file.exists()){
-                            // 封装请求体
-                            RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
-                            MultipartBody.Part filePart =
-                                    MultipartBody.Part.createFormData("imgs", file.getName(), requestFile);
-
+                        if (imageUrls == null || imageUrls.size() == 0) {
                             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                                    .addFormDataPart("content",  new Gson().toJson(req))
-                                    .addPart(filePart)
-                                    .build();
-                            return mHttpApi.feedback(requestBody);
-                        }else{
-                            RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                                    .addFormDataPart("content",  new Gson().toJson(req))
+                                    .addFormDataPart("content", new Gson().toJson(req))
                                     .addPart(MultipartBody.Part.createFormData("imgs", ""))
                                     .build();
-
                             return mHttpApi.feedback(requestBody);
+                        } else {
+                            MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                    .addFormDataPart("content", new Gson().toJson(req));
+                            for (String imagePath : imageUrls) {
+                                File file = new File(imagePath);
+                                if(!TextUtils.isEmpty(imagePath) && file.exists()){
+                                    // 封装请求体
+                                    RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+                                    MultipartBody.Part filePart =
+                                            MultipartBody.Part.createFormData("imgs", file.getName(), requestFile);
+                                    builder.addPart(filePart);
+                                }
+                            }
+                            return mHttpApi.feedback(builder.build());
                         }
                     }
                 })

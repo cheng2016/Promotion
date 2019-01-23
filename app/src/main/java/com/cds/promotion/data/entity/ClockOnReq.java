@@ -16,26 +16,20 @@ public class ClockOnReq {
      */
 
     private String user_id;
+    private String type;
     private String location;
     private String address;
     //    private String time;
     private String description;
-    private String type;
+
 
     public ClockOnReq() {
     }
 
-    public ClockOnReq(String user_id, String type) {
+    public ClockOnReq(String user_id, String type, String location) {
         this.user_id = user_id;
         this.type = type;
-    }
-
-    public ClockOnReq(String user_id, String location, String address, String description, String type) {
-        this.user_id = user_id;
         this.location = location;
-        this.address = address;
-        this.description = description;
-        this.type = type;
     }
 
     public String getUser_id() {

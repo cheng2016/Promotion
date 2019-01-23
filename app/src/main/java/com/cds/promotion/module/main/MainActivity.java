@@ -23,6 +23,7 @@ import com.cds.promotion.module.attendance.AttendanceActivity;
 import com.cds.promotion.module.feedback.FeedBackActivity;
 import com.cds.promotion.module.login.LoginActivity;
 import com.cds.promotion.module.message.MessageActivity;
+import com.cds.promotion.module.store.StoreActivity;
 import com.cds.promotion.module.visit.VisitActivity;
 import com.cds.promotion.util.AppManager;
 import com.cds.promotion.util.picasso.PicassoCircleTransform;
@@ -51,11 +52,11 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
 
     MainContract.Presenter mPresenter;
 
-    int[] icons = {R.mipmap.btn_attendance, R.mipmap.btn_visiting,
+    int[] icons = {R.mipmap.btn_attendance, R.mipmap.btn_visiting, R.mipmap.btn_store,
             R.mipmap.btn_feedback, R.mipmap.btn_achievement, R.mipmap.btn_aboutapp
             , R.mipmap.btn_logout};
 
-    String[] descripes = {"Attendance", "Visiting", "Feedback", "Achievement", "About APP", "Logout"};
+    String[] descripes = {"Attendance", "Visiting", "Shops", "Feedback", "Achievement", "About APP", "Logout"};
 
     @Override
     protected int getLayoutId() {
@@ -169,21 +170,25 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
                 startActivity(intent);
                 break;
             case 2:
-                intent.setClass(MainActivity.this, FeedBackActivity.class);
+                intent.setClass(MainActivity.this, StoreActivity.class);
                 startActivity(intent);
                 break;
             case 3:
-                intent.setClass(MainActivity.this, AchievementActivity.class);
+                intent.setClass(MainActivity.this, FeedBackActivity.class);
                 startActivity(intent);
                 break;
             case 4:
-                intent.setClass(MainActivity.this, AboutActivity.class);
+                intent.setClass(MainActivity.this, AchievementActivity.class);
                 startActivity(intent);
                 break;
             case 5:
+                intent.setClass(MainActivity.this, AboutActivity.class);
+                startActivity(intent);
+                break;
+            case 6:
                 new CustomDialog(this)
                         .setTitle(getResources().getString(R.string.exit_account))
-                        .setPositiveButton( new View.OnClickListener() {
+                        .setPositiveButton(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if (null != mSocketService) {

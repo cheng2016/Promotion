@@ -9,6 +9,8 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.cds.promotion.App;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -172,7 +174,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             String time = formatter.format(new Date());
             String fileName = time + ".txt";
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "wecare/pet/crash" + File.separator;
+                String path = App.getInstance().getAppCacheDir() + "crash" + File.separator;
                 File dir = new File(path);
                 if (!dir.exists()) {
                     dir.mkdirs();

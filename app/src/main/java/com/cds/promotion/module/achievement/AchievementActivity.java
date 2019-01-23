@@ -44,6 +44,13 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
         new AchievementPresenter(this);
 
         mPresenter.getAchievement();
+        mLoadingView.showLoading();
+        mLoadingView.setRetryListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getAchievement();
+            }
+        });
     }
 
     @Override
@@ -62,8 +69,14 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void getAchievementSuccess(AchievemenBean resp) {
+        mLoadingView.showContent();
         salesRandTv.setText("No." + resp.getSales_rank());
         signingRandTv.setText("No." + resp.getDealer_rank());
         amountRandTv.setText("No." + resp.getOrder_rank());
+    }
+
+    @Override
+    public void getAchievementFailed() {
+        mLoadingView.showError();
     }
 }

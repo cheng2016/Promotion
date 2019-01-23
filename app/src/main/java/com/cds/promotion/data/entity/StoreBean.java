@@ -13,11 +13,19 @@ public class StoreBean {
      * tel_phone_number : 13691912020
      * name : 店铺一
      */
-
+    private String id;
     private String img;
     private String address;
     private String tel_phone_number;
     private String name;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getImg() {
         return img;

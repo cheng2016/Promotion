@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "822735686245",
+    "firebase_url": "https://kuda-promotion.firebaseio.com",
+    "project_id": "kuda-promotion",
+    "storage_bucket": "kuda-promotion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822735686245:android:a032d374593653ae",
+        "android_client_info": {
+          "package_name": "com.cds.promotion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822735686245-o678256pl0rs4naassojakeqabgokc97.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cds.promotion",
+            "certificate_hash": "2f0a79bdce2d2170349d989a8e82ff0df1df9314"
+          }
+        },
+        {
+          "client_id": "822735686245-lfkntlme7ktd2bd5n7no6lqc3sugmfrt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLwGOcWCriNLYTKgBkhI91s9VgH2XFbIk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822735686245-lfkntlme7ktd2bd5n7no6lqc3sugmfrt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

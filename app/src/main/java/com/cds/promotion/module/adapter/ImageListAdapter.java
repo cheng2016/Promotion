@@ -41,7 +41,7 @@ public class ImageListAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
-    public List getDataList() {
+    public List<String> getDataList() {
         return mDataList;
     }
 

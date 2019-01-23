@@ -7,7 +7,8 @@
 
     <FrameLayout
         android:layout_width="@dimen/widget_size_80"
-        android:layout_height="@dimen/widget_size_66">
+        android:layout_height="@dimen/widget_size_66"
+        android:layout_marginRight="@dimen/widget_size_3">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/img"
@@ -21,8 +22,8 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/del_img"
-            android:layout_width="@dimen/widget_size_20"
-            android:layout_height="@dimen/widget_size_20"
+            android:layout_width="@dimen/widget_size_18"
+            android:layout_height="@dimen/widget_size_18"
             android:layout_alignParentRight="true"
             android:layout_gravity="right"
             android:adjustViewBounds="true"

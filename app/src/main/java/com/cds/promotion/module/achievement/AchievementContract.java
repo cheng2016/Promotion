@@ -12,6 +12,8 @@ import com.cds.promotion.module.BaseView;
 public interface AchievementContract {
     interface View extends BaseView<Presenter> {
         void getAchievementSuccess(AchievemenBean resp);
+
+        void getAchievementFailed();
     }
 
     interface Presenter extends BasePresenter {

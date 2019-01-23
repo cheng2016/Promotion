@@ -31,7 +31,7 @@
                 android:layout_centerInParent="true"
                 android:drawablePadding="@dimen/widget_size_16"
                 android:gravity="center_horizontal"
-                android:text="No Visit log"
+                android:text="No Store"
                 android:textColor="#999999" />
         </RelativeLayout>
     </FrameLayout>

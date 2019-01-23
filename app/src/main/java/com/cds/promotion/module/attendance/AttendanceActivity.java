@@ -1,18 +1,29 @@
 package com.cds.promotion.module.attendance;
 
+import android.Manifest;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.cds.promotion.App;
 import com.cds.promotion.R;
 import com.cds.promotion.base.BaseActivity;
 import com.cds.promotion.data.Constant;
 import com.cds.promotion.data.entity.ClockOnInfo;
 import com.cds.promotion.module.attendance.record.AttendanceRecordActivity;
+import com.cds.promotion.util.PermissionHelper;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -56,6 +67,13 @@ public class AttendanceActivity extends BaseActivity implements View.OnClickList
 
     AttendanceContract.Presenter mPresenter;
 
+    // The entry point to the Fused Location Provider.
+    private FusedLocationProviderClient mFusedLocationProviderClient;
+
+    private Location mLastLocation;
+
+    private PermissionHelper mHelper;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_attendance;
@@ -73,7 +91,50 @@ public class AttendanceActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void initData() {
         new AttendancePresenter(this);
+        // Construct a FusedLocationProviderClient.
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        mHelper = new PermissionHelper(this);
+        getLocation();
+
         mPresenter.getClockOn();
+        mLoadingView.showLoading();
+        mLoadingView.setRetryListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getClockOn();
+            }
+        });
+    }
+
+    private void getLocation() {
+        mHelper.requestPermissions(getResources().getString(R.string.permission_rationale_location),
+                new PermissionHelper.PermissionListener() {
+                    @Override
+                    public void doAfterGrand(String... permission) {
+                        getLastLocation();
+                    }
+
+                    @Override
+                    public void doAfterDenied(String... permission) {
+                        Toast.makeText(App.getInstance(), getResources().getString(R.string.location_permission_denied), Toast.LENGTH_SHORT).show();
+                    }
+                }, Manifest.permission.ACCESS_FINE_LOCATION);
+    }
+
+    private void getLastLocation() {
+        Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
+        locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                if (task.isSuccessful()) {
+                    // Set the map's camera position to the current location of the device.
+                    mLastLocation = task.getResult();
+                } else {
+                    Log.d(TAG, "Current location is null. Using defaults.");
+                    Log.e(TAG, "Exception: %s", task.getException());
+                }
+            }
+        });
     }
 
     @Override
@@ -97,26 +158,42 @@ public class AttendanceActivity extends BaseActivity implements View.OnClickList
 
     @OnClick({R.id.check_in_btn, R.id.check_out_btn})
     public void onViewClicked(View view) {
+        String location;
         switch (view.getId()) {
             case R.id.check_in_btn:
                 showProgressDilog();
-                mPresenter.clockOn(Constant.ON_WORK);
+                if (mLastLocation == null) {
+                    getLocation();
+                } else {
+                    location = mLastLocation.getLatitude() + "," + mLastLocation.getLongitude();
+                    mPresenter.clockOn(Constant.ON_WORK, location);
+                }
                 break;
             case R.id.check_out_btn:
                 showProgressDilog();
-                mPresenter.clockOn(Constant.OFF_WORK);
+                if (mLastLocation == null) {
+                    getLocation();
+                } else {
+                    location = mLastLocation.getLatitude() + "," + mLastLocation.getLongitude();
+                    mPresenter.clockOn(Constant.OFF_WORK, location);
+                }
                 break;
         }
     }
 
     @Override
     public void getClockOnSuccess(ClockOnInfo resp) {
+        mLoadingView.showContent();
         goWorkTitle.setText("Working hours " + resp.getGo_work_time().substring(10));
         offWorkTitle.setText("Working hours " + resp.getOff_work_time().substring(10));
+
+        DateTime current = new DateTime(System.currentTimeMillis());
+//        DateTime goWork = DateTime.parse(resp.getGo_work_time(), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm"));
+        DateTime offwork = DateTime.parse(resp.getOff_work_time(), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm"));
+
         if (TextUtils.isEmpty(resp.getGo_work_active_time())) {
             goWorkIcon.setImageResource(R.mipmap.attendancedot_current);
             offWorkIcon.setImageResource(R.mipmap.attendancedot);
-
             checkInBtn.setVisibility(View.VISIBLE);
             goWorkLayout.setVisibility(View.GONE);
         } else {
@@ -125,33 +202,43 @@ public class AttendanceActivity extends BaseActivity implements View.OnClickList
 
             checkInBtn.setVisibility(View.GONE);
             goWorkLayout.setVisibility(View.VISIBLE);
-            checkInTime.setText(resp.getGo_work_active_time());
+            checkInTime.setText("Clock in time " + resp.getGo_work_active_time().substring(10));
 
             DateTime start = DateTime.parse(resp.getGo_work_active_time(), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm"));
             DateTime end = DateTime.parse(resp.getGo_work_time(), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm"));
-            if(start.isAfter(end)){
+            if (start.isAfter(end)) {
                 checkInStatus.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 checkInStatus.setVisibility(View.GONE);
             }
         }
 
         if (TextUtils.isEmpty(resp.getOff_work_active_time())) {
-            checkOutBtn.setVisibility(View.VISIBLE);
-            offWorkLayout.setVisibility(View.GONE);
+            if (current.isAfter(offwork)) {
+                checkOutBtn.setVisibility(View.VISIBLE);
+                offWorkLayout.setVisibility(View.GONE);
+            } else {
+                checkOutBtn.setVisibility(View.GONE);
+                offWorkLayout.setVisibility(View.GONE);
+            }
         } else {
             checkOutBtn.setVisibility(View.GONE);
             offWorkLayout.setVisibility(View.VISIBLE);
-            checkOutTime.setText(resp.getOff_work_active_time());
+            checkOutTime.setText("Clock out time " + resp.getOff_work_active_time().substring(10));
 
             DateTime start = DateTime.parse(resp.getOff_work_active_time(), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm"));
             DateTime end = DateTime.parse(resp.getOff_work_time(), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm"));
-            if(start.isAfter(end)){
+            if (start.isAfter(end)) {
                 checkOutStatus.setVisibility(View.GONE);
-            }else {
+            } else {
                 checkOutStatus.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    @Override
+    public void getClockOnFail() {
+        mLoadingView.showError();
     }
 
     @Override

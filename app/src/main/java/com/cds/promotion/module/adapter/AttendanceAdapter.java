@@ -2,6 +2,7 @@ package com.cds.promotion.module.adapter;
 
 import android.content.Context;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,9 +75,11 @@ public class AttendanceAdapter extends BaseAdapter {
             holder.timeTv.setText(bean.getGo_work_date());
 
             holder.checkInTv.setText(Html.fromHtml("<font color='#999999'>Attendance: &nbsp&nbsp</font>"
-                    + bean.getGo_work_active_time() +  "<font color='#FF4A56'>" + bean.getLate() + "&nbsp&nbsp</font>"));
-            holder.checkOutTv.setText(Html.fromHtml("&nbsp&nbsp<font color='#999999'>Off Attendance: &nbsp&nbsp</font>"
-                    + bean.getOff_work_active_time() +  "&nbsp&nbsp<font color='#FF4A56'>" + bean.getLeave_early() + "&nbsp&nbsp</font>"));
+                    + (TextUtils.isEmpty(bean.getGo_work_active_time()) ? "" : bean.getGo_work_active_time()) + "&nbsp&nbsp<font color='#FF4A56'>"
+                    + (TextUtils.isEmpty(bean.getLate()) ? "" : bean.getLate()) + "&nbsp&nbsp</font>"));
+            holder.checkOutTv.setText(Html.fromHtml("<font color='#999999'>Off Attendance: &nbsp&nbsp</font>"
+                    + (TextUtils.isEmpty(bean.getOff_work_active_time()) ? "" : bean.getOff_work_active_time()) + "&nbsp&nbsp<font color='#FF4A56'>"
+                    + (TextUtils.isEmpty(bean.getLeave_early()) ? "" : bean.getLeave_early()) + "&nbsp&nbsp</font>"));
         }
         return view;
     }

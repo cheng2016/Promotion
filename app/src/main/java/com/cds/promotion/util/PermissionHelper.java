@@ -224,8 +224,8 @@ public class PermissionHelper {
     public void showMessageOKCancel(CharSequence message, DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(getActivity(mContext))
                 .setMessage(message)
-                .setPositiveButton("确定", okListener)
-                .setNegativeButton("取消", null)
+                .setPositiveButton(android.R.string.ok, okListener)
+                .setNegativeButton(android.R.string.cancel, null)
                 .setCancelable(false)
                 .create()
                 .show();

@@ -64,8 +64,15 @@ public class AchievementPresenter implements AchievementContract.Presenter {
                         if ("200".equals(resp.getInfo().getCode())) {
                             view.getAchievementSuccess(resp.getData());
                         } else {
+                            view.getAchievementFailed();
                             ToastUtils.showShort(resp.getInfo().getInfo());
                         }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        view.getAchievementFailed();
                     }
 
                     @Override

@@ -7,6 +7,7 @@ import com.cds.promotion.data.entity.ClockOnList;
 import com.cds.promotion.data.entity.Info;
 import com.cds.promotion.data.entity.SalesInfo;
 import com.cds.promotion.data.entity.StoreList;
+import com.cds.promotion.data.entity.VisitingInfo;
 import com.cds.promotion.data.entity.VisitingList;
 
 import io.reactivex.Observable;
@@ -30,9 +31,6 @@ public interface HttpApi {
     @GET("sales/info")
     Observable<BaseResp<SalesInfo>> getSalesInfo(@Query("content") String json);
 
-    @POST("sales/feedback")
-    Observable<BaseResp> feedback(@Body RequestBody Body);
-
     @POST("sales/clockOn")
     Observable<BaseResp> clockOn(@Query("content") String json);
 
@@ -46,11 +44,17 @@ public interface HttpApi {
     Observable<BaseResp<VisitingList>> getVisitingList(@Query("content") String json);
 
     @GET("visiting/info")
-    Observable<BaseResp> getVisitingInfo(@Query("content") String json);
+    Observable<BaseResp<VisitingInfo>> getVisitingInfo(@Query("content") String json);
+
+    @POST("visiting/info")
+    Observable<BaseResp> saveVisiting(@Body RequestBody Body);
 
     @GET("sales/getAchievement")
     Observable<BaseResp<AchievemenBean>> getAchievement(@Query("content") String json);
 
     @GET("dealer/list")
     Observable<BaseResp<StoreList>> getDealerList(@Query("content") String json);
+
+    @POST("sales/feedback")
+    Observable<BaseResp> feedback(@Body RequestBody Body);
 }

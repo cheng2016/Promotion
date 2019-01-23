@@ -63,15 +63,6 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
     private FeedBackPresenter mPresenter;
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.unsubscribe();
-        if (mAvatarFile != null) {
-            mAvatarFile.delete();
-        }
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.activity_feedback;
     }
@@ -122,6 +113,11 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         imgGridView.setAdapter(adapter);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.unsubscribe();
+    }
 
     @Override
     public void onClick(View view) {
@@ -138,6 +134,7 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
                 } else {
                     showProgressDilog();
 //                    mPresenter.feedback(content, mFilePath);
+                    mPresenter.feedback(content, adapter.getDataList());
                 }
                 break;
             default:
@@ -152,7 +149,9 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void feedbackSuccess() {
+        hideProgressDilog();
         ToastUtils.showShort(App.getInstance(), "Successful feedback");
+        deleteTempFile();
         finish();
     }
 
@@ -161,6 +160,16 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         hideProgressDilog();
     }
 
+    private void deleteTempFile() {
+        if (adapter.getDataList() != null && adapter.getDataList().size() > 0) {
+            for (String url : adapter.getDataList()) {
+                File file = new File(url);
+                if (file.isFile() && file.exists()) {
+                    file.delete();
+                }
+            }
+        }
+    }
 
     private String mPhotoPath;
     private File mPhotoFile;

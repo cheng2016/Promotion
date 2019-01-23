@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<!--    <FrameLayout
+    <FrameLayout
         android:layout_width="@dimen/widget_size_80"
-        android:layout_height="@dimen/widget_size_66">-->
+        android:layout_height="@dimen/widget_size_66">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/img"
@@ -15,8 +15,8 @@
             android:layout_width="@dimen/widget_size_70"
             android:layout_height="@dimen/widget_size_56"
             android:layout_centerInParent="true"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop" />
-<!--    </FrameLayout>-->
+    </FrameLayout>
 </LinearLayout>

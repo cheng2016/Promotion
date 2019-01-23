@@ -1,6 +1,6 @@
 package com.cds.promotion.module.visit.detail;
 
-import com.cds.promotion.data.entity.VisitBean;
+import com.cds.promotion.data.entity.VisitingInfo;
 import com.cds.promotion.module.BasePresenter;
 import com.cds.promotion.module.BaseView;
 
@@ -11,7 +11,7 @@ import com.cds.promotion.module.BaseView;
  */
 public interface VisitDetailContract {
     interface View extends BaseView<Presenter> {
-        void getVisitingInfoSuccess();
+        void getVisitingInfoSuccess(VisitingInfo resp);
 
         void getVisitingInfoFail();
     }

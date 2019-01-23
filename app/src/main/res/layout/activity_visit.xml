@@ -8,27 +8,27 @@
 
     <include layout="@layout/action_bar" />
 
-    <com.cheng.refresh.library.ReboundScrollView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/action_bar_height"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/action_bar_height">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/widget_size_160">
-
-            </FrameLayout>
+                android:layout_height="@dimen/widget_size_170" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/widget_size_10"
-                android:layout_marginTop="@dimen/widget_size_16"
+                android:layout_marginTop="@dimen/widget_size_12"
                 android:layout_marginRight="@dimen/widget_size_10"
                 android:orientation="vertical"
                 android:visibility="visible">
@@ -38,6 +38,7 @@
                     android:layout_height="wrap_content"
                     android:text="Current Location:"
                     android:textColor="@color/disable_color"
+                    android:visibility="gone"
                     android:textSize="@dimen/font_size_16" />
 
                 <TextView
@@ -45,6 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/widget_size_8"
+                    android:visibility="gone"
                     android:text="JMD Pacific Square, Behind 32 Milestone, Delhi-Jaipur Highway (NH - 08) Gurgaon, Haryana-122002 India"
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_size_16" />
@@ -84,7 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/widget_min_size_2"
                         android:layout_marginTop="@dimen/widget_size_45"
-                        android:background="@color/enable_color"/>
+                        android:background="@color/enable_color" />
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/add_shop_btn"
@@ -130,15 +132,14 @@
                     android:layout_height="@dimen/widget_size_120"
                     android:layout_alignParentLeft="true"
                     android:layout_marginTop="@dimen/widget_size_8"
-                    android:layout_marginBottom="@dimen/widget_size_60"
+                    android:layout_marginBottom="@dimen/widget_size_30"
                     android:gravity="left|top"
                     android:hint="Please enter your visit notes."
                     android:maxLength="300"
                     android:padding="@dimen/widget_size_6" />
             </LinearLayout>
         </LinearLayout>
-    </com.cheng.refresh.library.ReboundScrollView>
-
+    </ScrollView>
 
 
     <android.support.v7.widget.AppCompatButton

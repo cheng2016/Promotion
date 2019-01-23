@@ -18,7 +18,6 @@
             android:layout_height="wrap_content"
             android:text="2019-01-01"
             android:textColor="@color/black"
-            android:fontFamily="sans-serif"
             android:textSize="@dimen/font_size_18"  />
 
         <TextView
@@ -27,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/widget_size_8"
             android:text="Attendance:"
-            android:fontFamily="sans-serif-light"
             android:textColor="@color/black"
             android:textSize="@dimen/font_size_16" />
 
@@ -38,7 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/widget_size_8"
             android:text="Off Attendance:"
-            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/black"
             android:textSize="@dimen/font_size_16" />
 

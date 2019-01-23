@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.Utils;
+import com.cds.promotion.util.CrashHandler;
 import com.cds.promotion.util.DeviceUtils;
 import com.cds.promotion.util.Logger;
 import com.cds.promotion.util.PreferenceConstants;
@@ -23,7 +24,7 @@ import java.io.File;
  * @Version: 3.0.0
  */
 public class App extends Application {
-    public static final  String TAG = "App";
+    public static final String TAG = "App";
 
     public String HOST = "sit.wecarelove.com";
 
@@ -46,26 +47,26 @@ public class App extends Application {
         //初始化工具类
         Utils.init(this);
         initPicasoConfig();
-//        CrashHandler.getInstance().init(this);
+        CrashHandler.getInstance().init(this);
     }
 
     private void initPicasoConfig() {
         if (DeviceUtils.isSDCardEnable()) {
-            appCacheDir = Environment.getExternalStorageDirectory() + "/wecare/pet/";
+            appCacheDir = Environment.getExternalStorageDirectory() + "/wecare/" + getResources().getString(R.string.app_name) + "/";
         } else {
-            appCacheDir = getCacheDir().getAbsolutePath() + "/wecare/pet/";
+            appCacheDir = getCacheDir().getAbsolutePath() + "/wecare/" + getResources().getString(R.string.app_name) + "/";
         }
         File directory = new File(appCacheDir);
         if (!directory.exists()) {
             directory.mkdirs();
         }
-        PreferenceUtils.setPrefString(this,PreferenceConstants.APP_CACHE_DIR,appCacheDir);
+        PreferenceUtils.setPrefString(this, PreferenceConstants.APP_CACHE_DIR, appCacheDir);
         imageCacheDir = appCacheDir + "image/";
         File file = new File(imageCacheDir);
         if (!file.exists()) {
             file.mkdirs();
         }
-        PreferenceUtils.setPrefString(this,PreferenceConstants.APP_IMAGE_CACHE_DIR,imageCacheDir);
+        PreferenceUtils.setPrefString(this, PreferenceConstants.APP_IMAGE_CACHE_DIR, imageCacheDir);
         //设置图片内存缓存大小为运行时内存的八分之一
         long l = Runtime.getRuntime().maxMemory();
         OkHttpClient client = new OkHttpClient();
@@ -81,8 +82,14 @@ public class App extends Application {
 
 
     public String getAppCacheDir() {
-        if(TextUtils.isEmpty(appCacheDir)){
-            appCacheDir = PreferenceUtils.getPrefString(this,PreferenceConstants.APP_CACHE_DIR,"");
+        if (TextUtils.isEmpty(appCacheDir)) {
+            if (DeviceUtils.isSDCardEnable()) {
+                appCacheDir = Environment.getExternalStorageDirectory() + File.separator + "wecare" +
+                        File.separator + getResources().getString(R.string.app_name) + File.separator;
+            } else {
+                appCacheDir = getCacheDir().getAbsolutePath() + File.separator + "wecare" +
+                        File.separator + getResources().getString(R.string.app_name) + File.separator;
+            }
             Logger.i(TAG, "getAppCacheDir：" + appCacheDir);
         }
         File directory = new File(appCacheDir);
