@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * @Author: chengzj
@@ -97,7 +96,6 @@ public class StoreFragment extends BaseFragment implements StoreContract.View, P
     public void onDestroyView() {
         super.onDestroyView();
         mPresenter.unsubscribe();
-        ButterKnife.unbind(this);
     }
 
     private void getData() {

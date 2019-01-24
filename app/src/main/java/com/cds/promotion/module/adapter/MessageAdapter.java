@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cds.promotion.R;
@@ -73,10 +74,16 @@ public class MessageAdapter extends BaseAdapter {
             holder.titleTv.setText(bean.getTitle());
             holder.contentTv.setText(bean.getContent());
             holder.timeTv.setText(DateUtils.parseMillisToString(Long.parseLong(bean.getTailtime())));
+            if(bean.getIsNew() == 0){
+                holder.newTip.setVisibility(View.VISIBLE);
+            }else {
+                holder.newTip.setVisibility(View.GONE);
+            }
         }
         return view;
     }
 
+    static
     class ViewHolder {
         @Bind(R.id.title_tv)
         TextView titleTv;
@@ -86,6 +93,8 @@ public class MessageAdapter extends BaseAdapter {
         TextView detailTv;
         @Bind(R.id.time_tv)
         TextView timeTv;
+        @Bind(R.id.new_tip)
+        ImageView newTip;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

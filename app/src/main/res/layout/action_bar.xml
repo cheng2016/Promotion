@@ -55,7 +55,7 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:visibility="invisible"
-            app:srcCompat="@mipmap/clearallmessage" />
+            app:srcCompat="@mipmap/group" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/right_tv"
@@ -66,7 +66,18 @@
             android:text="相册"
             android:textColor="@color/black"
             android:textSize="@dimen/font_size_16"
-            android:visibility="gone" />
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/new_tip"
+            android:layout_width="@dimen/widget_size_8"
+            android:layout_height="@dimen/widget_size_8"
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/widget_size_8"
+            android:layout_marginRight="@dimen/widget_size_8"
+            android:visibility="invisible"
+            app:srcCompat="@mipmap/dot_message" />
+
     </FrameLayout>
 
 

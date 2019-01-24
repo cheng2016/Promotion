@@ -20,5 +20,9 @@ public interface MessageContract {
 
     interface Presenter extends BasePresenter {
         void queryMessage(int offset);
+
+        void updateMessage(List<SMessage> list);
+
+        void clearMessage();
     }
 }

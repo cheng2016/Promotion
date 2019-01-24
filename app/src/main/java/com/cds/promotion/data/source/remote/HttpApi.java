@@ -49,7 +49,7 @@ public interface HttpApi {
     @POST("visiting/info")
     Observable<BaseResp> saveVisiting(@Body RequestBody Body);
 
-    @GET("sales/getAchievement")
+    @GET("sales/achievement")
     Observable<BaseResp<AchievemenBean>> getAchievement(@Query("content") String json);
 
     @GET("dealer/list")

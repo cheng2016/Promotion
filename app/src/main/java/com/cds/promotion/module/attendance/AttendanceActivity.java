@@ -152,6 +152,12 @@ public class AttendanceActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.unsubscribe();
+    }
+
+    @Override
     public void setPresenter(AttendanceContract.Presenter presenter) {
         mPresenter = presenter;
     }

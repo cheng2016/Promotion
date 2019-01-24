@@ -17,6 +17,8 @@ import butterknife.Bind;
  * 业绩
  */
 public class AchievementActivity extends BaseActivity implements View.OnClickListener, AchievementContract.View {
+    @Bind(R.id.achievement_title)
+    TextView achievementTitle;
     @Bind(R.id.signing_rand_tv)
     TextView signingRandTv;
     @Bind(R.id.sales_rand_tv)
@@ -42,7 +44,6 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void initData() {
         new AchievementPresenter(this);
-
         mPresenter.getAchievement();
         mLoadingView.showLoading();
         mLoadingView.setRetryListener(new View.OnClickListener() {
@@ -63,6 +64,12 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.unsubscribe();
+    }
+
+    @Override
     public void setPresenter(AchievementContract.Presenter presenter) {
         mPresenter = presenter;
     }
@@ -70,6 +77,7 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void getAchievementSuccess(AchievemenBean resp) {
         mLoadingView.showContent();
+        achievementTitle.setText("The existing competitive staff:" + resp.getSales_count());
         salesRandTv.setText("No." + resp.getSales_rank());
         signingRandTv.setText("No." + resp.getDealer_rank());
         amountRandTv.setText("No." + resp.getOrder_rank());

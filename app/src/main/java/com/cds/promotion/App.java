@@ -4,7 +4,6 @@ import android.app.Application;
 import android.os.Environment;
 import android.text.TextUtils;
 
-import com.blankj.utilcode.util.Utils;
 import com.cds.promotion.util.CrashHandler;
 import com.cds.promotion.util.DeviceUtils;
 import com.cds.promotion.util.Logger;
@@ -18,6 +17,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
+//import com.blankj.utilcode.util.Utils;
+
 /**
  * @Author: chengzj
  * @CreateDate: 2018/11/29 15:23
@@ -25,6 +26,8 @@ import java.io.File;
  */
 public class App extends Application {
     public static final String TAG = "App";
+
+    public long LOCATION_BEAT_RATE = 3 * 60 * 1000;
 
     public String HOST = "sit.wecarelove.com";
 
@@ -45,7 +48,7 @@ public class App extends Application {
         super.onCreate();
         mInstance = this;
         //初始化工具类
-        Utils.init(this);
+//        Utils.init(this);
         initPicasoConfig();
         CrashHandler.getInstance().init(this);
     }

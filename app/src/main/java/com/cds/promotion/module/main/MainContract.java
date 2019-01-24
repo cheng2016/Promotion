@@ -1,5 +1,7 @@
 package com.cds.promotion.module.main;
 
+import android.location.Location;
+
 import com.cds.promotion.data.entity.SalesInfo;
 import com.cds.promotion.module.BasePresenter;
 import com.cds.promotion.module.BaseView;
@@ -12,9 +14,15 @@ import com.cds.promotion.module.BaseView;
 public interface MainContract {
     interface View extends BaseView<Presenter> {
         void getSalesInfoSuccess(SalesInfo resp);
+
+        void onLocationChanged(Location location);
+
+
     }
 
     interface Presenter extends BasePresenter {
         void getSalesInfo();
+
+        void requestLocation();
     }
 }

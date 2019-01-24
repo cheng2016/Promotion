@@ -7,14 +7,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
-import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.cds.promotion.App;
 import com.cds.promotion.R;
 import com.cds.promotion.base.BaseActivity;
 import com.cds.promotion.module.main.MainActivity;
+import com.cds.promotion.util.KeyboardUtils;
 import com.cds.promotion.util.PreferenceConstants;
 import com.cds.promotion.util.PreferenceUtils;
+import com.cds.promotion.util.ToastUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;

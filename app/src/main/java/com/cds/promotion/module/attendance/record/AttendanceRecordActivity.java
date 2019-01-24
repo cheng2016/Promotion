@@ -80,6 +80,12 @@ public class AttendanceRecordActivity extends BaseActivity implements View.OnCli
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.unsubscribe();
+    }
+
+    @Override
     public void setPresenter(AttendanceRecordContract.Presenter presenter) {
         mPresenter = presenter;
     }

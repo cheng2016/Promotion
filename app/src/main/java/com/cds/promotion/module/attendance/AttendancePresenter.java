@@ -1,6 +1,5 @@
 package com.cds.promotion.module.attendance;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.cds.promotion.App;
 import com.cds.promotion.data.BaseResp;
 import com.cds.promotion.data.entity.ClockOnInfo;
@@ -11,6 +10,7 @@ import com.cds.promotion.data.source.remote.HttpApi;
 import com.cds.promotion.data.source.remote.HttpFactory;
 import com.cds.promotion.util.PreferenceConstants;
 import com.cds.promotion.util.PreferenceUtils;
+import com.cds.promotion.util.ToastUtils;
 import com.google.gson.Gson;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

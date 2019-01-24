@@ -1,7 +1,11 @@
 package com.cds.promotion.module.main;
 
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.AppCompatTextView;
@@ -11,9 +15,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.ToastUtils;
+import com.cds.promotion.App;
 import com.cds.promotion.R;
 import com.cds.promotion.base.BaseActivity;
+import com.cds.promotion.data.entity.LoginOut;
 import com.cds.promotion.data.entity.MenuBean;
 import com.cds.promotion.data.entity.SalesInfo;
 import com.cds.promotion.module.about.AboutActivity;
@@ -25,9 +30,20 @@ import com.cds.promotion.module.login.LoginActivity;
 import com.cds.promotion.module.message.MessageActivity;
 import com.cds.promotion.module.store.StoreActivity;
 import com.cds.promotion.module.visit.VisitActivity;
+import com.cds.promotion.service.SocketMsg;
+import com.cds.promotion.service.SocketService;
+import com.cds.promotion.service.message.ContentMsg;
+import com.cds.promotion.service.message.HeadMsg;
+import com.cds.promotion.service.message.LocationMsg;
+import com.cds.promotion.service.message.TailMsg;
 import com.cds.promotion.util.AppManager;
+import com.cds.promotion.util.Logger;
+import com.cds.promotion.util.PreferenceConstants;
+import com.cds.promotion.util.PreferenceUtils;
+import com.cds.promotion.util.ToastUtils;
 import com.cds.promotion.util.picasso.PicassoCircleTransform;
 import com.cds.promotion.view.CustomDialog;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -51,6 +67,8 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
     GridView menuGridList;
 
     MainContract.Presenter mPresenter;
+
+    MessageReceiver messageReceiver;
 
     int[] icons = {R.mipmap.btn_attendance, R.mipmap.btn_visiting, R.mipmap.btn_store,
             R.mipmap.btn_feedback, R.mipmap.btn_achievement, R.mipmap.btn_aboutapp
@@ -95,6 +113,15 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
         }, 300);
 
         mPresenter.getSalesInfo();
+        registerReceiver();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //请求定位
+                mPresenter.requestLocation();
+            }
+        }, 3000);
     }
 
     @Override
@@ -108,18 +135,52 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
     }
 
     @Override
+    public void onEventMainThread(Object event) {
+        super.onEventMainThread(event);
+        if(event instanceof LoginOut){
+            //清空登录信息
+            PreferenceUtils.setPrefString(App.getInstance(), PreferenceConstants.USER_PASSWORD, "");
+            PreferenceUtils.setPrefString(App.getInstance(), PreferenceConstants.USER_ID, "");
+            closeNetty();
+            Intent i = new Intent().setClass(this, LoginActivity.class);
+            startActivity(i);
+            finish();
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(messageReceiver);
         closeNetty();
         //程序退出前清除所有推送
         clearNotificaction();
         mPresenter.unsubscribe();
     }
 
-
     private void clearNotificaction() {
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.cancelAll();
+    }
+
+    private void registerReceiver() {
+        IntentFilter iFilter = new IntentFilter();
+        iFilter.addAction(MESSAGE_BROADCAST_ACTION);
+        messageReceiver = new MessageReceiver();
+        registerReceiver(messageReceiver, iFilter);
+    }
+
+    /**
+     * 构造消息广播监听类，收到消息后刷新该页面
+     */
+    public class MessageReceiver extends BroadcastReceiver {
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(MESSAGE_BROADCAST_ACTION)) {
+//                messageTipImg.setVisibility(View.VISIBLE);
+                Logger.i(TAG, "有一条新消息通知");
+                findViewById(R.id.new_tip).setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     //双击返回键 退出
@@ -148,6 +209,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.right_button:
+                findViewById(R.id.new_tip).setVisibility(View.GONE);
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, MessageActivity.class);
                 startActivity(intent);
@@ -214,5 +276,24 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
         nameTv.setText(Html.fromHtml(resp.getName() + "&nbsp&nbsp<font color='#999999'>Welcome!</font>"));
         companyTv.setText(resp.getCooperative_name());
         jobNumberTv.setText(Html.fromHtml("<font color='#999999'>Job number :&nbsp&nbsp</font>" + resp.getJob_no()));
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        String userId = PreferenceUtils.getPrefString(App.getInstance(), PreferenceConstants.USER_ID, "");
+        String token = PreferenceUtils.getPrefString(App.getInstance(), PreferenceConstants.ACCESS_TOKEN, "");
+        SocketMsg socketMsg = new SocketMsg();
+        socketMsg.setHead(new HeadMsg("", "13", userId, token));
+        ContentMsg contentMsg = new ContentMsg();
+        List<LocationMsg> list = new ArrayList<>();
+        LocationMsg locationMsg = new LocationMsg(String.valueOf(location.getLongitude()),
+                String.valueOf(location.getLatitude()), String.valueOf(location.getTime()));
+        list.add(locationMsg);
+        contentMsg.setLocations(list);
+        socketMsg.setContent(contentMsg);
+        socketMsg.setTail(new TailMsg(System.currentTimeMillis() + ""));
+        if (null != mSocketService) {
+            mSocketService.sendMessage(new Gson().toJson(socketMsg) + SocketService.END_FLAG);
+        }
     }
 }

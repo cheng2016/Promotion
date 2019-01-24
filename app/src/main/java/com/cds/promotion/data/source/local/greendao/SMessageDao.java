@@ -32,7 +32,7 @@ public class SMessageDao extends AbstractDao<SMessage, Long> {
         public final static Property MsgType = new Property(5, String.class, "msgType", false, "MSG_TYPE");
         public final static Property Title = new Property(6, String.class, "title", false, "TITLE");
         public final static Property Content = new Property(7, String.class, "content", false, "CONTENT");
-        public final static Property OrderId = new Property(8, String.class, "orderId", false, "ORDER_ID");
+        public final static Property IsNew = new Property(8, int.class, "isNew", false, "IS_NEW");
         public final static Property Tailtime = new Property(9, String.class, "tailtime", false, "TAILTIME");
     }
 
@@ -57,7 +57,7 @@ public class SMessageDao extends AbstractDao<SMessage, Long> {
                 "\"MSG_TYPE\" TEXT," + // 5: msgType
                 "\"TITLE\" TEXT," + // 6: title
                 "\"CONTENT\" TEXT," + // 7: content
-                "\"ORDER_ID\" TEXT," + // 8: orderId
+                "\"IS_NEW\" INTEGER NOT NULL ," + // 8: isNew
                 "\"TAILTIME\" TEXT);"); // 9: tailtime
     }
 
@@ -110,11 +110,7 @@ public class SMessageDao extends AbstractDao<SMessage, Long> {
         if (content != null) {
             stmt.bindString(8, content);
         }
- 
-        String orderId = entity.getOrderId();
-        if (orderId != null) {
-            stmt.bindString(9, orderId);
-        }
+        stmt.bindLong(9, entity.getIsNew());
  
         String tailtime = entity.getTailtime();
         if (tailtime != null) {
@@ -165,11 +161,7 @@ public class SMessageDao extends AbstractDao<SMessage, Long> {
         if (content != null) {
             stmt.bindString(8, content);
         }
- 
-        String orderId = entity.getOrderId();
-        if (orderId != null) {
-            stmt.bindString(9, orderId);
-        }
+        stmt.bindLong(9, entity.getIsNew());
  
         String tailtime = entity.getTailtime();
         if (tailtime != null) {
@@ -193,7 +185,7 @@ public class SMessageDao extends AbstractDao<SMessage, Long> {
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // msgType
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // title
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // content
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // orderId
+            cursor.getInt(offset + 8), // isNew
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9) // tailtime
         );
         return entity;
@@ -209,7 +201,7 @@ public class SMessageDao extends AbstractDao<SMessage, Long> {
         entity.setMsgType(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setTitle(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setContent(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setOrderId(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setIsNew(cursor.getInt(offset + 8));
         entity.setTailtime(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
      }
     

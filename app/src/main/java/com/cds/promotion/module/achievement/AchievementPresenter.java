@@ -1,6 +1,5 @@
 package com.cds.promotion.module.achievement;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.cds.promotion.App;
 import com.cds.promotion.data.BaseResp;
 import com.cds.promotion.data.entity.AchievemenBean;
@@ -10,6 +9,7 @@ import com.cds.promotion.data.source.remote.HttpApi;
 import com.cds.promotion.data.source.remote.HttpFactory;
 import com.cds.promotion.util.PreferenceConstants;
 import com.cds.promotion.util.PreferenceUtils;
+import com.cds.promotion.util.ToastUtils;
 import com.google.gson.Gson;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -65,7 +65,7 @@ public class AchievementPresenter implements AchievementContract.Presenter {
                             view.getAchievementSuccess(resp.getData());
                         } else {
                             view.getAchievementFailed();
-                            ToastUtils.showShort(resp.getInfo().getInfo());
+                            ToastUtils.showShort(App.getInstance(),resp.getInfo().getInfo());
                         }
                     }
 

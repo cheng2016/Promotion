@@ -24,7 +24,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
         findViewById(R.id.back_img).setVisibility(View.VISIBLE);
         findViewById(R.id.back_button).setVisibility(View.VISIBLE);
         findViewById(R.id.back_button).setOnClickListener(this);
-        ((TextView) findViewById(R.id.title)).setText("About");
+        ((TextView) findViewById(R.id.title)).setText("About APP");
     }
 
     @Override

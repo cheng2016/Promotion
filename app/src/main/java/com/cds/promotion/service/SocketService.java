@@ -268,7 +268,6 @@ public class SocketService extends Service implements SocketContract {
             super.channelRead(ctx, msg);
             String data = msg.toString();
             Logger.i(TAG, "client channelRead 数据内容：data：" + "\r\n" + data);
-
             SocketMsg response = new Gson().fromJson(data, SocketMsg.class);
             if (!("1".equals(response.getHead().getMsg_type()))) {
                 socketMsg.getHead().setMsg_id(response.getHead().getMsg_id());
@@ -289,7 +288,6 @@ public class SocketService extends Service implements SocketContract {
                     sMessage.setTitle(response.getContent().getTitle());
                     sMessage.setContent(response.getContent().getDetails());
                     sMessage.setTailtime(response.getTail().getTime());
-                    sMessage.setOrderId(response.getContent().getAppoint_id());
 //                    sMessage.setDeviceId(response.getContent().getDetail().getDevice_id());
 //                    sMessage.setDeviceName(response.getContent().getDetail().getDevice_name());
 //                    sMessage.setDeviceImg(response.getContent().getDetail().getDevice_type_img());

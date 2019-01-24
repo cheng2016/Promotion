@@ -54,4 +54,19 @@ public class MessagePresenter implements MessageContract.Presenter {
         Logger.i(TAG, "queryMessage messageList：" + new Gson().toJson(messageList));
         view.queryMessageSuccess(messageList);
     }
+
+    @Override
+    public void updateMessage(List<SMessage> list) {
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).setIsNew(1);
+            }
+            daoUtils.updateSMessage(list);
+        }
+    }
+
+    @Override
+    public void clearMessage() {
+        daoUtils.deleteAll();
+    }
 }

@@ -75,6 +75,24 @@ public class SMessageDaoUtils {
         return flag;
     }
 
+    public boolean updateSMessage(final List<SMessage> SMessageList) {
+        boolean flag = false;
+        try {
+            mManager.getDaoSession().runInTx(new Runnable() {
+                @Override
+                public void run() {
+                    for (SMessage SMessage : SMessageList) {
+                        mManager.getDaoSession().update(SMessage);
+                    }
+                }
+            });
+            flag = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
     /**
      * 删除单条记录
      *

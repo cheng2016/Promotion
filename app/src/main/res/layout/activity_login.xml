@@ -85,6 +85,7 @@
             android:layout_marginTop="@dimen/widget_size_30"
             android:background="@drawable/shape_login_button"
             android:text="@string/sign_in"
+            style="?android:attr/buttonBarButtonStyle"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_16" />

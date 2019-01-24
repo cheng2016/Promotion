@@ -26,27 +26,13 @@ public class SMessage {
 
     private String content;
 
-    private String orderId;
-
-//    private String deviceImg;
-//
-//    private String deviceId;
-//
-//    private String deviceName;
-//
-//    private String deviceType;
-//
-//    private String deviceTypeName;
-//
-//    private String photoUrl;
-//
-//    private String videoUrl;
+    private int isNew;
 
     private String tailtime;
 
-    @Generated(hash = 173901646)
+    @Generated(hash = 57848717)
     public SMessage(Long id, String token, String userId, String uid, String msgId,
-            String msgType, String title, String content, String orderId,
+            String msgType, String title, String content, int isNew,
             String tailtime) {
         this.id = id;
         this.token = token;
@@ -56,7 +42,7 @@ public class SMessage {
         this.msgType = msgType;
         this.title = title;
         this.content = content;
-        this.orderId = orderId;
+        this.isNew = isNew;
         this.tailtime = tailtime;
     }
 
@@ -136,12 +122,12 @@ public class SMessage {
         this.tailtime = tailtime;
     }
 
-    public String getOrderId() {
-        return this.orderId;
+    public int getIsNew() {
+        return this.isNew;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setIsNew(int isNew) {
+        this.isNew = isNew;
     }
 
  }

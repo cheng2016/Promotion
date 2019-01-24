@@ -10,11 +10,13 @@ public class AchievemenBean {
      * sales_rank : 1
      * dealer_rank : 1
      * order_rank : 1
+     * sales_count : 2
      */
 
     private String sales_rank;
     private String dealer_rank;
     private String order_rank;
+    private int sales_count;
 
     public String getSales_rank() {
         return sales_rank;
@@ -38,5 +40,13 @@ public class AchievemenBean {
 
     public void setOrder_rank(String order_rank) {
         this.order_rank = order_rank;
+    }
+
+    public int getSales_count() {
+        return sales_count;
+    }
+
+    public void setSales_count(int sales_count) {
+        this.sales_count = sales_count;
     }
 }

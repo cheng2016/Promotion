@@ -1,7 +1,9 @@
 package com.cds.promotion.module.message;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -85,6 +87,25 @@ public class MessageActivity extends BaseActivity implements PullToRefreshBase.O
             case R.id.back_button:
                 finish();
                 break;
+            case R.id.right_button:
+                // Display the dialog.
+                AlertDialog dialog = new AlertDialog.Builder(this)
+                        .setTitle("Confirm to remove all of the messages?")
+                        .setPositiveButton("Comfirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                 mPresenter.clearMessage();
+                                 mPresenter.queryMessage(0);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .show();
+                break;
         }
     }
 
@@ -116,6 +137,7 @@ public class MessageActivity extends BaseActivity implements PullToRefreshBase.O
         refreshListView.onPullDownRefreshComplete();
         refreshListView.onPullUpRefreshComplete();
         refreshListView.setHasMoreData(hasMoreData);
+        mPresenter.updateMessage(list);
     }
 
     @Override

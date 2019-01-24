@@ -1,6 +1,5 @@
 package com.cds.promotion.module.login;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.cds.promotion.App;
 import com.cds.promotion.data.BaseResp;
 import com.cds.promotion.data.entity.Info;
@@ -11,6 +10,7 @@ import com.cds.promotion.data.source.remote.HttpFactory;
 import com.cds.promotion.util.MD5Utils;
 import com.cds.promotion.util.PreferenceConstants;
 import com.cds.promotion.util.PreferenceUtils;
+import com.cds.promotion.util.ToastUtils;
 import com.google.gson.Gson;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

@@ -4,7 +4,7 @@ apply plugin: 'org.greenrobot.greendao'
 
 greendao {
     //数据库的schema版本，也可以理解为数据库版本号
-    schemaVersion 1
+    schemaVersion 3
     //设置DaoMaster、DaoSession、Dao包名，也就是要放置这些类的包的全路径。
     daoPackage 'com.cds.promotion.data.source.local.greendao'
     //设置DaoMaster、DaoSession、Dao目录
@@ -78,7 +78,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //工具库utils
-    implementation 'com.blankj:utilcode:1.22.0'
+//    implementation 'com.blankj:utilcode:1.22.0'
     //时间工具类
     implementation 'joda-time:joda-time:2.9.9'
     //数据库类库
