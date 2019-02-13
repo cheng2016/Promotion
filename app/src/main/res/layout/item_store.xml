@@ -26,7 +26,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/widget_size_16"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher_round"
+            android:src="@mipmap/defaultimage_store"
             android:text="2018-06-27 17:41"
             android:textColor="@color/enable_color"
             android:textSize="@dimen/widget_size_14" />

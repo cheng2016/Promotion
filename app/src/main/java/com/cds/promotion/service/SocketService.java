@@ -498,9 +498,9 @@ public class SocketService extends Service implements SocketContract {
                 @Override
                 public void run() {
                     new CustomDialog(AppManager.getInstance().getTopActivity())
-                            .setTitle("开启通知")
-                            .setMessage("为了避免错过重要的提醒，建议您开启系统通知。")
-                            .setPositiveButton("立即开启", new View.OnClickListener() {
+                            .setTitle("Opening Notice")
+                            .setMessage("To avoid missing important reminders, it is recommended that you turn on system notifications.")
+                            .setPositiveButton("Open immediately", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -514,7 +514,7 @@ public class SocketService extends Service implements SocketContract {
                                     }
                                 }
                             })
-                            .setCancelButton("不再提示", new View.OnClickListener() {
+                            .setCancelButton("No longer prompt", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     PreferenceUtils.setPrefBoolean(App.getInstance(), PreferenceConstants.SYSTEM_NOTIFY_AVAILABLE, false);
@@ -562,9 +562,9 @@ public class SocketService extends Service implements SocketContract {
             @Override
             public void run() {
                 new CustomDialog(AppManager.getInstance().getTopActivity())
-                        .setTitle("下线通知")
-                        .setMessage("您的账号已在另一台设备登录，如非本人操作，建议尽快修改密码")
-                        .setPositiveButton("重新登录", new View.OnClickListener() {
+                        .setTitle("Offline notification")
+                        .setMessage("Your account has been logged on to another device. If it is not operated by yourself, it is suggested that the password be changed as soon as possible.")
+                        .setPositiveButton("Re login", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 //清空登录信息
@@ -575,7 +575,7 @@ public class SocketService extends Service implements SocketContract {
                                 AppManager.getInstance().finishAllActivity();
                             }
                         })
-                        .setCancelButton("退出", new View.OnClickListener() {
+                        .setCancelButton("Sign out", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 //清空登录信息

@@ -31,7 +31,7 @@
             android:layout_height="@dimen/widget_size_45"
             android:layout_marginTop="@dimen/widget_size_30"
             android:background="@null"
-            android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:digits="0123456789abcdefghijgklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:ems="13"
             android:hint="@string/prompt_account"
             android:inputType="text"

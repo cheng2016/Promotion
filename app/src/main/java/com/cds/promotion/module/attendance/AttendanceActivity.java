@@ -191,7 +191,7 @@ public class AttendanceActivity extends BaseActivity implements View.OnClickList
     public void getClockOnSuccess(ClockOnInfo resp) {
         mLoadingView.showContent();
         goWorkTitle.setText("Working hours " + resp.getGo_work_time().substring(10));
-        offWorkTitle.setText("Working hours " + resp.getOff_work_time().substring(10));
+        offWorkTitle.setText("Off hours " + resp.getOff_work_time().substring(10));
 
         DateTime current = new DateTime(System.currentTimeMillis());
 //        DateTime goWork = DateTime.parse(resp.getGo_work_time(), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm"));

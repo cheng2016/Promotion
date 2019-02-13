@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/theme_color"
         app:tabMode="fixed"

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -33,6 +34,8 @@ public class MessageActivity extends BaseActivity implements PullToRefreshBase.O
 
     @Bind(R.id.right_img)
     ImageView rightImg;
+    @Bind(R.id.right_button)
+    FrameLayout rightButton;
     @Bind(R.id.empty_layout)
     RelativeLayout emptyLayout;
     @Bind(R.id.refresh_listView)
@@ -62,8 +65,9 @@ public class MessageActivity extends BaseActivity implements PullToRefreshBase.O
         ((TextView) findViewById(R.id.title)).setText("Messages");
 
         rightImg.setVisibility(View.VISIBLE);
-        rightImg.setImageResource(R.mipmap.clearallmessage);
-        findViewById(R.id.right_button).setOnClickListener(this);
+        rightImg.setImageResource(R.drawable.clear_selector);
+
+        rightButton.setOnClickListener(this);
 
         refreshListView.setPullLoadEnabled(false);//上拉加载是否可用
         refreshListView.setScrollLoadEnabled(true);//判断滑动到底部加载是否可用
@@ -120,9 +124,13 @@ public class MessageActivity extends BaseActivity implements PullToRefreshBase.O
         if (!isLoadMore) {
             mDataList.clear();
             if (list.isEmpty()) {
+                rightImg.setEnabled(false);
+                rightButton.setClickable(false);
                 emptyLayout.setVisibility(View.VISIBLE);
                 refreshListView.setScrollLoadEnabled(false);
             } else {
+                rightImg.setEnabled(true);
+                rightButton.setClickable(true);
                 emptyLayout.setVisibility(View.GONE);
                 refreshListView.setScrollLoadEnabled(true);
             }

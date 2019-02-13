@@ -70,7 +70,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 String password = passwordView.getText().toString().trim();
                 if (TextUtils.isEmpty(acount)
                         || TextUtils.isEmpty(password)) {
-                    ToastUtils.showShort("账户和密码不能为空！");
+                    ToastUtils.showShort("Account and password cannot be empty！");
                 } else {
                     login(acount, password);
                 }
@@ -81,9 +81,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     private void login(String account, String password) {
         KeyboardUtils.hideSoftInput(this);
         if (TextUtils.isEmpty(account)) {
-            ToastUtils.showShort("账户不能为空");
+            ToastUtils.showShort("Account cannot be empty");
         } else if (TextUtils.isEmpty(password)) {
-            ToastUtils.showShort("密码不能为空");
+            ToastUtils.showShort("Password cannot be empty");
         } else {
             showProgressDilog();
             mPresenter.login(account, password);
@@ -94,7 +94,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void loginSuccess() {
         hideProgressDilog();
-        ToastUtils.showShort("登录成功！");
+        ToastUtils.showShort("Login success！");
         goToMainActivity();
     }
 

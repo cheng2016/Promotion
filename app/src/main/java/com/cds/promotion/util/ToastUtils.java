@@ -37,7 +37,8 @@ public class ToastUtils {
      * @param message
      */
     public static void showShort(Context context, CharSequence message) {
-        if(message.toString().contains("请重新登录")){
+        if(message.toString().contains("请重新登录")
+                || message.toString().contains("会话已过期，请重新登录")){
             EventBus.getDefault().post(new LoginOut("logout"));
         }
         if (null == toast) {

@@ -35,7 +35,7 @@ public class StoreActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        ((TextView) findViewById(R.id.title)).setText("Store");
+        ((TextView) findViewById(R.id.title)).setText("My Store");
         findViewById(R.id.back_img).setVisibility(View.VISIBLE);
         findViewById(R.id.back_button).setVisibility(View.VISIBLE);
         findViewById(R.id.back_button).setOnClickListener(this);
@@ -50,7 +50,7 @@ public class StoreActivity extends BaseActivity implements View.OnClickListener,
     protected void initData() {
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             Fragment[] mFragments = new Fragment[3];
-            String[] titles = new String[]{"In Audit", "Signed", "To Be Signed"};
+            String[] titles = new String[]{"To Be Signed", "In Audit", "Signed"};
 
             @Override
             public int getCount() {

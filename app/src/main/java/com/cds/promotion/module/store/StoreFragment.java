@@ -101,13 +101,13 @@ public class StoreFragment extends BaseFragment implements StoreContract.View, P
     private void getData() {
         switch (type) {
             case 0:
-                mPresenter.getDealerList(Constant.STORE_IN_AUDIT, offset);
+                mPresenter.getDealerList(Constant.STORE_TO_BE_SIGNED, offset);
                 break;
             case 1:
-                mPresenter.getDealerList(Constant.STORE_SIGNED, offset);
+                mPresenter.getDealerList(Constant.STORE_IN_AUDIT, offset);
                 break;
             case 2:
-                mPresenter.getDealerList(Constant.STORE_TO_BE_SIGNED, offset);
+                mPresenter.getDealerList(Constant.STORE_SIGNED, offset);
                 break;
             default:
                 break;

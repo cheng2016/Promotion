@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -110,7 +111,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
                     mSocketService.startPushService();
                 }
             }
-        }, 300);
+        }, 600);
 
         mPresenter.getSalesInfo();
         registerReceiver();
@@ -257,6 +258,8 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
                                     mSocketService.shutdownNetty();
                                 }
                                 //清空登录信息
+                                PreferenceUtils.setPrefString(App.getInstance(), PreferenceConstants.USER_PASSWORD, "");
+                                PreferenceUtils.setPrefString(App.getInstance(), PreferenceConstants.USER_ID,"");
                                 Intent i = new Intent().setClass(MainActivity.this, LoginActivity.class);
                                 startActivity(i);
                                 AppManager.getInstance().finishAllActivity();
@@ -268,11 +271,13 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
 
     @Override
     public void getSalesInfoSuccess(SalesInfo resp) {
-        Picasso.with(MainActivity.this)
-                .load(resp.getHead_img())
-                .error(R.mipmap.userportrait)
-                .transform(new PicassoCircleTransform())
-                .into(headImg);
+        if(!TextUtils.isEmpty(resp.getHead_img())){
+            Picasso.with(MainActivity.this)
+                    .load(resp.getHead_img())
+                    .error(R.mipmap.userportrait)
+                    .transform(new PicassoCircleTransform())
+                    .into(headImg);
+        }
         nameTv.setText(Html.fromHtml(resp.getName() + "&nbsp&nbsp<font color='#999999'>Welcome!</font>"));
         companyTv.setText(resp.getCooperative_name());
         jobNumberTv.setText(Html.fromHtml("<font color='#999999'>Job number :&nbsp&nbsp</font>" + resp.getJob_no()));

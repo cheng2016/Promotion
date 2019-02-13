@@ -28,6 +28,7 @@
             android:background="@android:color/transparent">
 
             <TextView
+                android:drawableTop="@mipmap/img_nomessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
