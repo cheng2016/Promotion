@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.Environment;
 import android.text.TextUtils;
 
+import com.aitangba.swipeback.ActivityLifecycleHelper;
 import com.cds.promotion.util.CrashHandler;
 import com.cds.promotion.util.DeviceUtils;
 import com.cds.promotion.util.Logger;
@@ -51,6 +52,7 @@ public class App extends Application {
 //        Utils.init(this);
         initPicasoConfig();
         CrashHandler.getInstance().init(this);
+        registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());
     }
 
     private void initPicasoConfig() {

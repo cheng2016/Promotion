@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.aitangba.swipeback.SwipeBackActivity;
 import com.cds.promotion.service.SocketService;
 import com.cds.promotion.util.AppManager;
 import com.cds.promotion.util.Logger;
@@ -25,7 +26,7 @@ import ezy.ui.layout.LoadingLayout;
  * Created by chengzj on 2017/6/17.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends SwipeBackActivity {
     public String TAG = "";
     protected SocketService mSocketService;
 
