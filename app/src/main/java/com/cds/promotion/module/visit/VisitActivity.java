@@ -127,7 +127,7 @@ public class VisitActivity extends BaseActivity
 
     private CameraPosition mCameraPosition;
 
-    private String dealer_id;
+    private String dealer_id = "";
 
     @Override
     protected int getLayoutId() {
@@ -233,8 +233,8 @@ public class VisitActivity extends BaseActivity
                     ToastUtils.showShort(App.getInstance(), "Please fill in the visiting note first");
                 } else if (note.length() < 20) {
                     ToastUtils.showShort(App.getInstance(), "Please fill in a description of no less than 20 words");
-                } else if (TextUtils.isEmpty(dealer_id)) {
-                    ToastUtils.showShort(App.getInstance(), "Please selecton Visiting Store first");
+                } else if (TextUtils.isEmpty(shopNameEdt.getText().toString())) {
+                    ToastUtils.showShort(App.getInstance(), "Please select the store or enter the store name manually.");
                 } else if (mLastLocation == null) {
                     ToastUtils.showShort(App.getInstance(), "Please choose current location first");
                 } else if (adapter.getDataList() == null || adapter.getDataList().size() == 0) {
@@ -242,7 +242,7 @@ public class VisitActivity extends BaseActivity
                 } else {
                     showProgressDilog();
                     String location = mLastLocation.getLatitude() + "," + mLastLocation.getLongitude();
-                    mPresenter.saveVisiting(dealer_id, note, location, adapter.getDataList());
+                    mPresenter.saveVisiting(dealer_id, shopNameEdt.getText().toString(), note, location, adapter.getDataList());
                 }
                 break;
         }
@@ -495,7 +495,7 @@ public class VisitActivity extends BaseActivity
                 if (task.isSuccessful()) {
                     // Set the map's camera position to the current location of the device.
                     mLastLocation = task.getResult();
-                    if(mLastLocation != null){
+                    if (mLastLocation != null) {
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                 new LatLng(mLastLocation.getLatitude(),
                                         mLastLocation.getLongitude()), DEFAULT_ZOOM));

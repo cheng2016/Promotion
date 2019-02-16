@@ -64,8 +64,15 @@ public class VisitRecordPresenter implements VisitRecordContract.Presenter {
                         if ("200".equals(resp.getInfo().getCode())) {
                             view.getVisitingListSuccess(resp.getData());
                         } else {
+                            view.getVisitingListFail();
                             ToastUtils.showShort(App.getInstance(),resp.getInfo().getInfo());
                         }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        view.getVisitingListFail();
                     }
 
                     @Override

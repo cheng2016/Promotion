@@ -18,7 +18,7 @@ public interface VisitContract {
     }
 
     interface Presenter extends BasePresenter {
-        void saveVisiting(String dealer_id, String visiting_notes,
+        void saveVisiting(String dealer_id, String dealer_name,String visiting_notes,
                               String visiting_location, List<String> imgUrls);
     }
 }

@@ -56,10 +56,10 @@ public class VisitPresenter implements VisitContract.Presenter{
     }
 
     @Override
-    public void saveVisiting(String dealer_id, String visiting_notes, String visiting_location,
+    public void saveVisiting(String dealer_id, String dealer_name,String visiting_notes, String visiting_location,
                              final List<String> imageUrls) {
         String userId = PreferenceUtils.getPrefString(App.getInstance(), PreferenceConstants.USER_ID, "");
-        final SaveVisitingReq req = new SaveVisitingReq(userId,dealer_id,visiting_notes,visiting_location);
+        final SaveVisitingReq req = new SaveVisitingReq(userId,dealer_id,dealer_name,visiting_notes,visiting_location);
         Observable.just("")
                 .subscribeOn(Schedulers.io())                // 切换至IO线程
                 .flatMap(new Function<String, ObservableSource<BaseResp>>() {
@@ -70,7 +70,7 @@ public class VisitPresenter implements VisitContract.Presenter{
                                     .addFormDataPart("content", new Gson().toJson(req))
                                     .addPart(MultipartBody.Part.createFormData("visiting_img", ""))
                                     .build();
-                            return mHttpApi.feedback(requestBody);
+                            return mHttpApi.saveVisiting(requestBody);
                         } else {
                             MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                                     .addFormDataPart("content", new Gson().toJson(req));

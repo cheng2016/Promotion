@@ -8,12 +8,21 @@ package com.cds.promotion.data.entity;
 public class SaveVisitingReq {
     private String user_id;
     private String dealer_id;
+    private String dealer_name;
     private String visiting_notes;
     private String visiting_location;
 
-    public SaveVisitingReq(String user_id, String dealer_id, String visiting_notes, String visiting_location) {
+/*    public SaveVisitingReq(String user_id, String dealer_id, String visiting_notes, String visiting_location) {
         this.user_id = user_id;
         this.dealer_id = dealer_id;
+        this.visiting_notes = visiting_notes;
+        this.visiting_location = visiting_location;
+    }*/
+
+    public SaveVisitingReq(String user_id, String dealer_id, String dealer_name, String visiting_notes, String visiting_location) {
+        this.user_id = user_id;
+        this.dealer_id = dealer_id;
+        this.dealer_name = dealer_name;
         this.visiting_notes = visiting_notes;
         this.visiting_location = visiting_location;
     }
@@ -32,6 +41,14 @@ public class SaveVisitingReq {
 
     public void setDealer_id(String dealer_id) {
         this.dealer_id = dealer_id;
+    }
+
+    public String getDealer_name() {
+        return dealer_name;
+    }
+
+    public void setDealer_name(String dealer_name) {
+        this.dealer_name = dealer_name;
     }
 
     public String getVisiting_notes() {

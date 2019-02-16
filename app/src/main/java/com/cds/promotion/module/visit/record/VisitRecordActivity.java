@@ -128,12 +128,14 @@ public class VisitRecordActivity extends BaseActivity implements PullToRefreshBa
                 refreshListView.setScrollLoadEnabled(true);
             }
         }
-        if (list.size() == REQUEST_NUM) {
+        if (list != null && list.size() == REQUEST_NUM) {
             hasMoreData = true;
         } else {
             hasMoreData = false;
         }
-        mDataList.addAll(list);
+        if (list != null) {
+            mDataList.addAll(list);
+        }
         adapter.setDataList(mDataList);
         refreshListView.onPullDownRefreshComplete();
         refreshListView.onPullUpRefreshComplete();
