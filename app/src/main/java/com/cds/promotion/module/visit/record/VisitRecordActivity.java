@@ -120,7 +120,7 @@ public class VisitRecordActivity extends BaseActivity implements PullToRefreshBa
         List<VisitBean> list = resp.getVisiting();
         if (!isLoadMore) {
             mDataList.clear();
-            if (list.isEmpty()) {
+            if (list == null || list.isEmpty()) {
                 emptyLayout.setVisibility(View.VISIBLE);
                 refreshListView.setScrollLoadEnabled(false);
             } else {
