@@ -5,11 +5,12 @@
 
 ## Function
 
-- 集成 Netty 框架优化 TCP 通信
 - App 采用 MVP 架构
+- 集成 Netty 框架优化 TCP 通信
 - 集成 Retrofit2 + okhttp3 + rxjava 的 Http 请求框架
 - 采用https增强通信安全性
 - 使用 bindService 模式启动 Service
+- 集成google地图
 - 侧滑退出功能
 
 
