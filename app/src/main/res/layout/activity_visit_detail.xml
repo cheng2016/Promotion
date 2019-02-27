@@ -103,8 +103,8 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Visiting Notes(total 200):"
+                    android:layout_height="24dp"
+                    android:text="Visiting Notes(total 300):"
                     android:textColor="@color/disable_color"
                     android:textSize="@dimen/font_size_16" />
 

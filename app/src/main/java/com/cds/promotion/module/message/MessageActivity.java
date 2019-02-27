@@ -2,12 +2,11 @@ package com.cds.promotion.module.message;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,9 +30,6 @@ import butterknife.Bind;
  */
 public class MessageActivity extends BaseActivity implements PullToRefreshBase.OnRefreshListener<ListView>, MessageContract.View, AdapterView.OnItemClickListener, View.OnClickListener {
     public static final int REQUEST_NUM = 10;
-
-    @Bind(R.id.right_img)
-    ImageView rightImg;
     @Bind(R.id.right_button)
     FrameLayout rightButton;
     @Bind(R.id.empty_layout)
@@ -41,6 +37,8 @@ public class MessageActivity extends BaseActivity implements PullToRefreshBase.O
     @Bind(R.id.refresh_listView)
     PullToRefreshListView refreshListView;
     private ListView mListView;
+
+    AppCompatImageView rightImg;
 
     List<SMessage> mDataList = new ArrayList<>();
 
@@ -64,6 +62,7 @@ public class MessageActivity extends BaseActivity implements PullToRefreshBase.O
         findViewById(R.id.back_button).setOnClickListener(this);
         ((TextView) findViewById(R.id.title)).setText("Messages");
 
+        rightImg = findViewById(R.id.right_img);
         rightImg.setVisibility(View.VISIBLE);
         rightImg.setImageResource(R.drawable.clear_selector);
 
@@ -98,8 +97,8 @@ public class MessageActivity extends BaseActivity implements PullToRefreshBase.O
                         .setPositiveButton("Comfirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                 mPresenter.clearMessage();
-                                 mPresenter.queryMessage(0);
+                                mPresenter.clearMessage();
+                                mPresenter.queryMessage(0);
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -157,27 +156,16 @@ public class MessageActivity extends BaseActivity implements PullToRefreshBase.O
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                offset = 0;
-                isLoadMore = false;
-                mPresenter.queryMessage(offset);
-
-            }
-        }, 1200);
+        offset = 0;
+        isLoadMore = false;
+        mPresenter.queryMessage(offset);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                offset++;
-                isLoadMore = true;
-                mPresenter.queryMessage(offset);
-            }
-        }, 1200);
+        offset++;
+        isLoadMore = true;
+        mPresenter.queryMessage(offset);
     }
 
 

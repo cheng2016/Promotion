@@ -195,7 +195,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Vie
             super.onBackPressed();
             return;
         } else {
-            ToastUtils.showShort("再次点击返回键退出");
+            ToastUtils.showShort(R.string.click_back_exit);
         }
         mBackPressed = System.currentTimeMillis();
     }

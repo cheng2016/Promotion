@@ -4,6 +4,7 @@ import com.cds.promotion.App;
 import com.cds.promotion.data.entity.SMessage;
 import com.cds.promotion.data.source.local.SMessageDaoUtils;
 import com.cds.promotion.data.source.local.greendao.SMessageDao;
+import com.cds.promotion.data.source.remote.BaseObserver;
 import com.cds.promotion.data.source.remote.HttpApi;
 import com.cds.promotion.data.source.remote.HttpFactory;
 import com.cds.promotion.util.Logger;
@@ -13,7 +14,13 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @Author: chengzj
@@ -48,11 +55,36 @@ public class MessagePresenter implements MessageContract.Presenter {
     }
 
     @Override
-    public void queryMessage(int offset) {
+    public void queryMessage(final int offset) {
         Logger.i(TAG, "queryMessage  offset：" + offset);
-        List<SMessage> messageList = daoUtils.querySMessage("USER_ID = ?", new String[]{userId}, SMessageDao.Properties.Id, offset, MessageActivity.REQUEST_NUM);//条件查询
-        Logger.i(TAG, "queryMessage messageList：" + new Gson().toJson(messageList));
-        view.queryMessageSuccess(messageList);
+        Observable.create(new ObservableOnSubscribe<List<SMessage>>() {
+            @Override
+            public void subscribe(ObservableEmitter<List<SMessage>> emitter) throws Exception {
+                List<SMessage> messageList = daoUtils.querySMessage("USER_ID = ?", new String[]{userId}, SMessageDao.Properties.Id, offset, MessageActivity.REQUEST_NUM);//条件查询
+                Logger.i(TAG, "queryMessage messageList：" + new Gson().toJson(messageList));
+                emitter.onNext(messageList);
+                emitter.onComplete();
+            }
+        }).observeOn(AndroidSchedulers.mainThread())//回调在主线程
+                .subscribeOn(Schedulers.io())//执行在io线程
+                .subscribe(new BaseObserver<List<SMessage>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Logger.e(TAG, "onSubscribe");
+                        mCompositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(List<SMessage> value) {
+                        Logger.e(TAG, "onNext:" + value);
+                        view.queryMessageSuccess(value);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override

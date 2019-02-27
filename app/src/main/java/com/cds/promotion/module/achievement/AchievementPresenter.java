@@ -77,7 +77,6 @@ public class AchievementPresenter implements AchievementContract.Presenter {
 
                     @Override
                     public void onComplete() {
-
                     }
                 });
     }

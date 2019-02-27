@@ -23,7 +23,8 @@ import retrofit2.http.Query;
 
 public interface HttpApi {
     //http://gank.io/api/day/2016/10/12
-    public static final String base_url = "https://sit.wecarelove.com/api/eshopdaily/";
+//    public static final String base_url = "https://sit.wecarelove.com/api/eshopdaily/";
+    public static final String base_url = "https://eshopsit.cooldays.cn/api/eshopdaily/";
 
     @POST("sales/login")
     Observable<BaseResp<Info>> login(@Query("content") String json);

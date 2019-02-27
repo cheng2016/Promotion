@@ -6,6 +6,8 @@ package com.cds.promotion.service.message;
  * @Version: 3.0.0
  */
 public class LocationMsg {
+    private String salesId;
+
     private String longitude;
 
     private String latitude;
@@ -16,6 +18,13 @@ public class LocationMsg {
     }
 
     public LocationMsg(String longitude, String latitude, String deviceTime) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.deviceTime = deviceTime;
+    }
+
+    public LocationMsg(String salesId, String longitude, String latitude, String deviceTime) {
+        this.salesId = salesId;
         this.longitude = longitude;
         this.latitude = latitude;
         this.deviceTime = deviceTime;

@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.aitangba.swipeback.SwipeBackActivity;
@@ -108,7 +107,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this);
         }
-        progressDialog.setMessage("加载中...");
+        progressDialog.setMessage("Loading...");
         if (!progressDialog.isShowing()) {
             progressDialog.show();
         }

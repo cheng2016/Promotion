@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.cds.promotion.App;
 import com.cds.promotion.util.DeviceUtils;
+import com.cds.promotion.util.I18NUtils;
+import com.cds.promotion.util.Logger;
 import com.cds.promotion.util.MD5Utils;
 import com.cds.promotion.util.NetUtils;
 import com.cds.promotion.util.PreferenceConstants;
@@ -15,6 +17,7 @@ import com.cds.promotion.util.ResourceUtils;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -43,7 +46,7 @@ public class HttpFactory {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(ResourceUtils.getProperties(App.getInstance(), "url"))
-                .client(getCacheSSLOkHttpClient("kuda.com.cer"))
+                .client(getCacheSSLOkHttpClient(ResourceUtils.getProperties(App.getInstance(), "cer")))
                 .build();
         return retrofit.create(service);
     }
@@ -112,7 +115,7 @@ public class HttpFactory {
                 .readTimeout(20 * 1000, TimeUnit.MILLISECONDS)
                 .connectTimeout(15 * 1000, TimeUnit.MILLISECONDS)
                 //设置拦截器，显示日志信息
-                .addInterceptor(httpLoggingInterceptor)
+                .addNetworkInterceptor(httpLoggingInterceptor)
                 .addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
                 .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
                 .cache(cache);
@@ -126,7 +129,7 @@ public class HttpFactory {
         return builder.build();
     }
 
-    private static final HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+    private static final HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS);
 
     private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
         @Override
@@ -139,7 +142,11 @@ public class HttpFactory {
             }
             //统一请求头添加
             request = request.newBuilder()
-                    .header("custom_token", token).build();
+                    .header("custom_token", token)
+                    .header("language", Locale.getDefault().getLanguage())
+                    .header("timezone", I18NUtils.getCurrentTimeZone())
+                    .build();
+
             //获取网络状态
             int netWorkState = NetUtils.getNetworkState(App.getInstance());
             //无网络，请求强制使用缓存
@@ -147,10 +154,13 @@ public class HttpFactory {
                 request = request.newBuilder()
                         .cacheControl(CacheControl.FORCE_CACHE)
                         .header("custom_token", token)
+                        .header("language", Locale.getDefault().getLanguage())
+                        .header("timezone", I18NUtils.getCurrentTimeZone())
                         .build();
             }
 
             Response originalResponse = chain.proceed(request);
+            Logger.i(TAG,"headers：" + originalResponse.headers().toString());
             switch (netWorkState) {
                 case NetUtils.NETWORK_MOBILE://moblie network 情况下缓存5s
                     int maxAge = 0;
